@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/index.css" />
+    <title>Previous Bookings</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="navbarleft">
+        <a href="/">Home</a>
+        <a href="/myBookings">My Bookings</a>
+        <a href="/previousBookings">Previous Bookings</a>
+      </div>
+      <div class="navbarright">
+        <div class="dropdown">
+          <button class="dropbtn"><i class="fa-solid fa-user"></i></button>
+          <div class="dropdown-content">
+            <a href="/account">Account</a>
+            <a href="/logout">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h1>Previous Bookings</h1>
+    <% if (previousBookings.length > 0) { %> <% previousBookings.forEach(booking
+    => { %>
+    <div class="booking">
+      <h3>User: <%= booking.userId.name %></h3>
+      <p>Booked on: <%= booking.createdAt.toDateString() %></p>
+    </div>
+    <% }); %> <% } else { %>
+    <p>No previous bookings.</p>
+    <% } %>
+  </body>
+</html>

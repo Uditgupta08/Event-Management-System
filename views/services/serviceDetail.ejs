@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= serviceType %> Details</title>
+    <link rel="stylesheet" href="/stylesheets/index.css" />
+  </head>
+  <style>
+    .btn-book {
+      background-color: #007bff;
+      color: #fff;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <h1><%= serviceType %> Details</h1>
+    <div class="service-details">
+      <h2><%= service.firmname %></h2>
+      <% if (service.photos && service.photos.length > 0) { %>
+      <div class="photo-gallery">
+        <% service.photos.forEach(photo => { %>
+        <img
+          src="/<%= photo %>"
+          alt="Service Photo"
+          style="max-width: 300px; margin-bottom: 10px"
+        />
+        <% }) %>
+      </div>
+      <% } %>
+      <p><%= service.description %></p>
+      <p>Budget: <%= service.budget %></p>
+      <% if (service.social) { %>
+      <a href="<%= service.social %>">Instagram</a>
+      <% } %>
+      <p>Whatsapp number: <%= service.contact %></p>
+    </div>
+    <button class="btn-book" onclick="confirmBooking('<%= service._id %>')">
+      Book now
+    </button>
+
+    <script>
+      function confirmBooking(providerId) {
+        if (confirm("Are you sure you want to book this service?")) {
+          fetch(`/bookService/${providerId}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                alert("Booking confirmed!");
+                window.location.href = "/myBookings";
+              } else {
+                alert("Booking failed. Please try again.");
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert("An error occurred. Please try again.");
+            });
+        }
+      }
+    </script>
+  </body>
+</html>

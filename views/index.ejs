@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Easevents</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap");
+    </style>
+  </head>
+  <body data-user-logged-in="<%= user ? 'true' : 'false' %>">
+    <div class="navbar">
+      <div class="navbarleft">
+        <a href="/">Home</a>
+        <a href="/services">Services</a>
+        <a href="/contact">Contact Us</a>
+      </div>
+      <div class="navbarright">
+        <% if (user) { %>
+        <a href="/todo">Create todo list</a>
+        <a href="/myBookings">My Bookings</a>
+        <div class="dropdown">
+          <button class="dropbtn"><i class="fa-solid fa-user"></i></button>
+          <div class="dropdown-content">
+            <a href="/account">Account</a>
+            <a href="/logout">Logout</a>
+          </div>
+        </div>
+        <% } else { %>
+        <a href="registerUser">Register as User</a>
+        <a href="registerProvider">Register as Provider</a>
+        <a href="loginUser">Login for User</a>
+        <a href="loginPro">Login for Provider</a>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="aboutUs">
+      <h1>About Us</h1>
+      <p>
+        Easevents is a comprehensive event management platform designed to make
+        planning and managing events effortless. We connect you with top-rated
+        service providers including caterers, decorators, DJs, bands, and venues
+        to ensure your event is a success. Whether you're planning a small
+        gathering or a large celebration, our platform offers the tools and
+        resources you need to create memorable experiences.
+      </p>
+    </div>
+
+    <h1>Services</h1>
+    <div class="services">
+      <div class="servCard" data-url="/services/caterer">
+        <div class="servImg">
+          <img src="../images/caterer.jpeg" alt="Catering Service" />
+        </div>
+        <div class="servText">
+          <h2>Caterers</h2>
+          <p>
+            Providing high-quality catering services for all types of events.
+          </p>
+        </div>
+      </div>
+      <div class="servCard" data-url="/services/decor">
+        <div class="servImg">
+          <img src="../images/decor.jpg" alt="Decoration Service" />
+        </div>
+        <div class="servText">
+          <h2>Decoration</h2>
+          <p>
+            Expert decoration services to enhance the ambiance of any event.
+          </p>
+        </div>
+      </div>
+      <div class="servCard" data-url="/services/djandbands">
+        <div class="servImg">
+          <img src="../images/bands.webp" alt="DJ and Bands Service" />
+        </div>
+        <div class="servText">
+          <h2>DJ and Bands</h2>
+          <p>
+            Professional DJs and bands to provide entertainment for any event.
+          </p>
+        </div>
+      </div>
+      <div class="servCard" data-url="/services/venue">
+        <div class="servImg">
+          <img src="../images/venue.jpeg" alt="Venue Service" />
+        </div>
+        <div class="servText">
+          <h2>Venues</h2>
+          <p>
+            A variety of venues available to suit events of all sizes and types.
+          </p>
+        </div>
+      </div>
+      <div class="servCard" data-url="/services/eventmanager">
+        <div class="servImg">
+          <img src="../images/manager.webp" alt="Manager Service" />
+        </div>
+        <div class="servText">
+          <h2>Event Manager</h2>
+          <p>
+            Professional event managers to oversee and coordinate all aspects of
+            your event.
+          </p>
+        </div>
+      </div>
+      <div class="servCard" data-url="/services/other">
+        <div class="servImg">
+          <img src="../images/other.webp" alt="Other Service" />
+        </div>
+        <div class="servText">
+          <h2>Other Services</h2>
+          <p>
+            Additional services to cater to all your unique event needs,
+            ensuring a comprehensive event planning experience.
+          </p>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("DOM Loaded");
+        const serviceCards = document.querySelectorAll(".servCard");
+        console.log("Service Cards:", serviceCards);
+
+        serviceCards.forEach((card) => {
+          card.addEventListener("click", (event) => {
+            console.log("Card clicked:", card);
+            const url = card.getAttribute("data-url");
+            console.log("URL:", url);
+
+            const userLoggedIn =
+              document.body.getAttribute("data-user-logged-in") === "true";
+            if (userLoggedIn) {
+              if (url) {
+                window.location.href = url;
+              } else {
+                console.error("URL not found for the card.");
+              }
+            } else {
+              alert("Please log in to view this service.");
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

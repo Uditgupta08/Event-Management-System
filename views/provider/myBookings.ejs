@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/index.css" />
+    <title>My Bookings</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="navbarleft">
+        <a href="/">Home</a>
+      </div>
+      <div class="navbarright">
+        <div class="dropdown">
+          <button class="dropbtn"><i class="fa-solid fa-user"></i></button>
+          <div class="dropdown-content">
+            <a href="/account">Account</a>
+            <a href="/logout">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h1>My Bookings</h1>
+
+    <h2>Recent Bookings</h2>
+    <% if (recentBookings.length > 0) { %> <%
+    recentBookings.forEach(function(booking) { %>
+    <div class="booking">
+      <h3><%= booking.providerId.firmname %></h3>
+      <p>Booked on: <%= booking.createdAt.toDateString() %></p>
+    </div>
+    <% }); %> <% } else { %>
+    <p>No recent bookings.</p>
+    <% } %>
+
+    <h2>Previous Bookings</h2>
+    <% if (previousBookings.length > 0) { %> <%
+    previousBookings.forEach(function(booking) { %>
+    <div class="booking">
+      <h3><%= booking.providerId.firmname %></h3>
+      <p>Booked on: <%= booking.createdAt.toDateString() %></p>
+    </div>
+    <% }); %> <% } else { %>
+    <p>No previous bookings.</p>
+    <% } %>
+  </body>
+</html>

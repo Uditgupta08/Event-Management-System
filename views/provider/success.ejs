@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap");
+    </style>
+    <title>Success</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="navbarleft">
+        <a href="">My Bookings</a>
+      </div>
+      <div class="navbarright">
+        <!-- <a href="chatPro"><i class="fa-solid fa-message"></i></a> -->
+        <!-- <a href=""><i class="fa-solid fa-cart-shopping"></i></a> -->
+        <div class="dropdown">
+          <button class="dropbtn"><i class="fa-solid fa-user"></i></button>
+          <div class="dropdown-content">
+            <a href="/account">Account</a>
+            <a href="/logout">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>Welcome aboard,</p>
+    <p>Email: <%= provider.email %></p>
+    <p>
+      Address: <%= provider.city %>, <%= provider.state %>, <%= provider.country
+      %>
+    </p>
+
+    <h2>Uploaded Photos:</h2>
+    <div>
+      <% if (provider.photos && provider.photos.length > 0) { %> <%
+      provider.photos.forEach(photo => { %>
+      <img
+        src="<%= photo %>"
+        alt="Provider Photo"
+        style="max-width: 300px; margin-bottom: 10px"
+      />
+      <% }); %> <% } else { %>
+      <p>No photos uploaded.</p>
+      <% } %>
+    </div>
+
+    <a href="/">Back to Home</a>
+  </body>
+</html>

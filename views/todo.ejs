@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <div class="todo-list">
+      <h2>To-Do List</h2>
+      <select id="todo-select">
+        <option value="Venue">Venue</option>
+        <option value="Decoration">Decoration</option>
+        <option value="Caterer">Caterer</option>
+        <option value="DJ and Bands">DJ and Bands</option>
+      </select>
+      <input
+        type="number"
+        id="budget-input"
+        placeholder="Enter budget for selected task"
+      />
+      <button onclick="addTodo()">Add</button>
+      <ul id="todo-ul"></ul>
+      <h3>Total Budget</h3>
+      <p>$<span id="total-budget">0</span></p>
+    </div>
+
+    <script src="/javascripts/todo"></script>
+  </body>
+</html>
