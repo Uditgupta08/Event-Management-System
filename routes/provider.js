@@ -4,7 +4,7 @@ const {
   loginProvider,
   logoutProvider,
 } = require("../controllers/provider");
-const upload = require("multer");
+const upload = require("../middlewares/multer");
 const { verifyToken } = require("../middlewares/auth");
 
 const providerRouter = express.Router();
@@ -13,7 +13,7 @@ providerRouter.get("/registerPro", (req, res) => {
   res.render("provider/register");
 });
 
-providerRouter.post("/registerProvider", upload, registerProvider);
+providerRouter.post("/registerPro", upload, registerProvider);
 
 providerRouter.get("/loginPro", (req, res) => {
   res.render("provider/login");

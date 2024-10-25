@@ -17,8 +17,13 @@ const registerProvider = async (req, res) => {
     const newProvider = new Provider(req.body);
 
     if (req.files) {
-      const photos = req.files.map((file) => file.path);
-      newProvider.photos = photos;
+      if (req.files.profilePhoto) {
+        newProvider.profilePhoto = req.files.profilePhoto[0].path;
+      }
+      if (req.files.photos) {
+        const photos = req.files.photos.map((file) => file.path);
+        newProvider.photos = photos;
+      }
     }
 
     await newProvider.save();

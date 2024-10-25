@@ -10,47 +10,106 @@
     />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap");
+      body {
+        font-family: "Cinzel", serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f8f8f8;
+      }
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #4caf50;
+        padding: 10px 20px;
+        color: white;
+      }
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        padding: 10px;
+      }
+      .navbar a:hover {
+        text-decoration: underline;
+      }
+      .navbar .button-container {
+        display: flex;
+        gap: 10px; /* Add space between buttons */
+      }
+      h2 {
+        margin-top: 20px;
+        color: #333;
+      }
+      .profile-info {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+      .profile-photo {
+        max-width: 150px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+      }
+      .photos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .photos img {
+        max-width: 300px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .button {
+        padding: 10px 15px;
+        background-color: #4caf50;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+      .button:hover {
+        background-color: #45a049;
+      }
     </style>
     <title>Success</title>
   </head>
   <body>
     <div class="navbar">
-      <div class="navbarleft">
-        <a href="">My Bookings</a>
-      </div>
-      <div class="navbarright">
-        <!-- <a href="chatPro"><i class="fa-solid fa-message"></i></a> -->
-        <!-- <a href=""><i class="fa-solid fa-cart-shopping"></i></a> -->
-        <div class="dropdown">
-          <button class="dropbtn"><i class="fa-solid fa-user"></i></button>
-          <div class="dropdown-content">
-            <a href="/account">Account</a>
-            <a href="/logout">Logout</a>
-          </div>
-        </div>
-      </div>
+      <a href="">My Bookings</a>
+      <a href="/booking-requests" class="button">View Booking Requests</a>
+      <a href="/set-availability" class="button">Set Availability</a>
+      <a href="/update">Edit Profile</a>
+      <a href="/logout">Logout</a>
     </div>
-    <p>Welcome aboard,</p>
-    <p>Email: <%= provider.email %></p>
-    <p>
-      Address: <%= provider.city %>, <%= provider.state %>, <%= provider.country
-      %>
-    </p>
+
+    <div class="profile-info">
+      <h2>Welcome aboard, <%= provider.email %>!</h2>
+      <% if (provider.profilePhoto) { %>
+      <img
+        src="<%= provider.profilePhoto %>"
+        alt="Profile Photo"
+        class="profile-photo"
+      />
+      <% } %>
+      <p><strong>Email:</strong> <%= provider.email %></p>
+      <p>
+        <strong>Address:</strong> <%= provider.city %>, <%= provider.state %>,
+        <%= provider.country %>
+      </p>
+    </div>
 
     <h2>Uploaded Photos:</h2>
-    <div>
+    <div class="photos">
       <% if (provider.photos && provider.photos.length > 0) { %> <%
       provider.photos.forEach(photo => { %>
-      <img
-        src="<%= photo %>"
-        alt="Provider Photo"
-        style="max-width: 300px; margin-bottom: 10px"
-      />
+      <img src="<%= photo %>" alt="Provider Photo" />
       <% }); %> <% } else { %>
       <p>No photos uploaded.</p>
       <% } %>
     </div>
 
-    <a href="/">Back to Home</a>
+    <a href="/" class="button">Back to Home</a>
   </body>
 </html>

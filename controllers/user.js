@@ -25,7 +25,8 @@ const loginUser = async (req, res) => {
     const accessToken = jwt.sign({ _id: user._id }, process.env.SECRET_KEY, {
       expiresIn: "1d",
     });
-    res.cookie("accessToken", accessToken, { httpOnly: true });
+    res.cookie("accessToken", accessToken, { httpOnly: true, sameSite: "lax" });
+    console.log(req.cookies);
     res.status(200).render("index", { user });
   } catch (error) {
     console.error("Error", error);

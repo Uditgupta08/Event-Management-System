@@ -4,7 +4,7 @@ const Booking = require("../models/booking");
 const getServicesByType = async (req, res) => {
   try {
     if (!req.isAuthenticated) {
-      return res.redirect("/loginUser");
+      return res.redirect("user/login");
     }
     const serviceType = req.params.type.toLowerCase();
     const services = await Provider.find({ service: serviceType }).select(
@@ -15,7 +15,10 @@ const getServicesByType = async (req, res) => {
       return res.send(`No ${serviceType}s found.`);
     }
 
-    res.render("services", { services: services, serviceType: serviceType });
+    res.render("services/services", {
+      services: services,
+      serviceType: serviceType,
+    });
   } catch (error) {
     console.error(`Error fetching ${req.params.type} services:`, error);
     res.status(500).send("Server Error");

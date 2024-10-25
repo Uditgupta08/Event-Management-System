@@ -11,9 +11,6 @@ const userSchema = new mongoose.Schema({
   state: {
     type: String,
   },
-  country: {
-    type: String,
-  },
   email: {
     type: String,
     required: true,

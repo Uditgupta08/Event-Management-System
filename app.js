@@ -40,9 +40,6 @@ app.use("/", serviceRoutes);
 app.get("/", (req, res) => {
   res.render("index", { user: req.user });
 });
-app.get("/", (req, res) => {
-  res.send("RUNNING");
-});
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
