@@ -34,7 +34,7 @@
       }
       .navbar .button-container {
         display: flex;
-        gap: 10px; /* Add space between buttons */
+        gap: 10px;
       }
       h2 {
         margin-top: 20px;
@@ -46,19 +46,21 @@
         border-radius: 8px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         margin-bottom: 20px;
+        text-align: center;
       }
       .profile-photo {
         max-width: 150px;
         border-radius: 50%;
         margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       }
       .photos {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 10px;
       }
       .photos img {
-        max-width: 300px;
+        max-width: 100%;
         border-radius: 8px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       }
@@ -68,19 +70,21 @@
         color: white;
         text-decoration: none;
         border-radius: 5px;
+        display: inline-block;
+        margin: 10px 0;
       }
       .button:hover {
-        background-color: #45a049;
+        background-color: #388e3c;
       }
     </style>
     <title>Success</title>
   </head>
   <body>
     <div class="navbar">
-      <a href="">My Bookings</a>
-      <a href="/booking-requests" class="button">View Booking Requests</a>
-      <a href="/set-availability" class="button">Set Availability</a>
-      <a href="/update">Edit Profile</a>
+      <a href="/past-bookings">My Bookings</a>
+      <a href="/requests" class="button">View Booking Requests</a>
+      <a href="/set-manual-busy-dates" class="button">Set Availability</a>
+      <a href="/edit">Edit Profile</a>
       <a href="/logout">Logout</a>
     </div>
 

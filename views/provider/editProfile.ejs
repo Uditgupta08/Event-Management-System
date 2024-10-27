@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Profile</title>
+  </head>
+  <body>
+    <h1>Edit Profile</h1>
+    <form action="/provider/update" method="POST" enctype="multipart/form-data">
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        name="email"
+        value="<%= provider.email %>"
+        required
+      /><br />
+
+      <label for="city">City:</label>
+      <input type="text" name="city" value="<%= provider.city %>" /><br />
+
+      <label for="state">State:</label>
+      <input type="text" name="state" value="<%= provider.state %>" /><br />
+
+      <label for="country">Country:</label>
+      <input type="text" name="country" value="<%= provider.country %>" /><br />
+
+      <label for="profilePhoto">Profile Photo:</label>
+      <input type="file" name="profilePhoto" /><br />
+
+      <button type="submit">Update Profile</button>
+    </form>
+  </body>
+</html>

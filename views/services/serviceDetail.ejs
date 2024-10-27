@@ -118,8 +118,51 @@
         Book now
       </button>
     </div>
-
+    <div id="bookingModal" style="display: none">
+      <div class="modal-content">
+        <h2>Select a Date for Booking</h2>
+        <input type="date" id="bookingDate" />
+        <button id="confirmDate">Request Booking</button>
+        <button onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
     <script>
+      function openModal(serviceId) {
+        document.getElementById("bookingModal").style.display = "block";
+        document.getElementById("confirmDate").onclick = function () {
+          const selectedDate = document.getElementById("bookingDate").value;
+          if (selectedDate) {
+            requestBooking(serviceId, selectedDate);
+          } else {
+            alert("Please select a date.");
+          }
+        };
+      }
+
+      function closeModal() {
+        document.getElementById("bookingModal").style.display = "none";
+      }
+
+      async function requestBooking(serviceId, date) {
+        try {
+          const response = await fetch(`/services/book/${serviceId}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ date }),
+          });
+          const data = await response.json();
+          if (data.success) {
+            alert("Booking request sent to provider.");
+            closeModal();
+          } else {
+            alert(data.message || "Booking request failed.");
+          }
+        } catch (error) {
+          console.error("Error sending booking request:", error);
+        }
+      }
       function confirmBooking(providerId) {
         if (confirm("Are you sure you want to book this service?")) {
           fetch(`/bookService/${providerId}`, {

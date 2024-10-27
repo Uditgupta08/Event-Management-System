@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/index.css" />
+    <title>Booking Requests</title>
+  </head>
+  <body>
+    <h2>Your Booking Requests</h2>
+    <ul>
+      <% requests.forEach(request => { %>
+      <li>
+        <strong>Request from:</strong> <%= request.userId.name %> (<%=
+        request.userId.email %>)<br />
+        <strong>Status:</strong> <%= request.status %><br />
+        <form action="/provider/requests/<%= request._id %>" method="POST">
+          <select name="status">
+            <option value="confirmed">Confirm</option>
+            <option value="rejected">Reject</option>
+          </select>
+          <button type="submit">Update Status</button>
+        </form>
+      </li>
+      <% }); %>
+    </ul>
+    <a href="/my-bookings">Back to My Bookings</a>
+  </body>
+</html>

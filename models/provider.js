@@ -26,10 +26,6 @@ const providerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  groups: {
-    type: Number,
-    default: 1,
-  },
   budget: {
     type: Number,
     required: true,
@@ -54,6 +50,16 @@ const providerSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
+  },
+  rating: {
+    type: Number,
+    default: 0,
+  },
+  manuallyBusyDates: {
+    type: [Date],
+  },
+  availabilityDates: {
+    type: [Date],
   },
 });
 

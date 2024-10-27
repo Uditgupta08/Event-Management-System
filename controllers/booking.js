@@ -1,17 +1,34 @@
+const Provider = require("../models/provider");
 const Booking = require("../models/booking");
 
 const bookService = async (req, res) => {
   const { userId, providerId, serviceType, eventDate, budget } = req.body;
+
   try {
+    const eventDateObj = new Date(eventDate);
+
+    const provider = await Provider.findById(providerId);
+    if (
+      provider.availabilityDates.includes(eventDateObj) ||
+      provider.manuallyBusyDates.includes(eventDateObj)
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: `Provider is not available on ${eventDate}.`,
+      });
+    }
     const newBooking = new Booking({
       userId,
       providerId,
       serviceType,
-      eventDate,
+      eventDate: eventDateObj,
       budget,
     });
 
     await newBooking.save();
+    provider.availabilityDates.push(eventDateObj);
+    await provider.save();
+
     return res.status(201).json({
       success: true,
       message: "Booking created successfully!",
@@ -42,6 +59,7 @@ const getProviderBookings = async (req, res) => {
     });
   }
 };
+
 const updateBookingStatus = async (req, res) => {
   const { bookingId } = req.params;
   const { status } = req.body;

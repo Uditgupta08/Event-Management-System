@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/index.css" />
+    <title>Set Availability</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+        margin: 0;
+        padding: 20px;
+      }
+      h1 {
+        color: #333;
+      }
+      form {
+        margin-bottom: 20px;
+      }
+      .dates-container {
+        margin: 20px 0;
+      }
+      .busy-date {
+        display: inline-block;
+        margin: 5px;
+        padding: 5px 10px;
+        background-color: #ffeb3b;
+        border-radius: 5px;
+      }
+      .button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .button:hover {
+        background-color: #388e3c;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Set Availability</h1>
+
+    <div class="dates-container">
+      <h2>Your Busy Dates:</h2>
+      <div id="busyDatesList">
+        <% if (busyDates && busyDates.length > 0) { %> <% busyDates.forEach(date
+        => { %>
+        <span class="busy-date"><%= date.toDateString() %></span>
+        <% }); %> <% } else { %>
+        <p>No busy dates set.</p>
+        <% } %>
+      </div>
+    </div>
+
+    <form action="/provider/busy-dates" method="POST">
+      <label for="busyDates">Set Busy Dates (comma separated):</label>
+      <input
+        type="text"
+        name="busyDates"
+        placeholder="YYYY-MM-DD, YYYY-MM-DD"
+      />
+      <button type="submit" class="button">Set Busy Dates</button>
+    </form>
+
+    <form action="/provider/available-dates" method="POST">
+      <label for="availableDates">Set Available Dates (comma separated):</label>
+      <input
+        type="text"
+        name="availableDates"
+        placeholder="YYYY-MM-DD, YYYY-MM-DD"
+      />
+      <button type="submit" class="button">Set Available Dates</button>
+    </form>
+
+    <a href="/provider/logoutPro" class="button">Logout</a>
+  </body>
+</html>

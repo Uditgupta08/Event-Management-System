@@ -6,25 +6,47 @@ const getServicesByType = async (req, res) => {
     if (!req.isAuthenticated) {
       return res.redirect("user/login");
     }
+
     const serviceType = req.params.type.toLowerCase();
-    const services = await Provider.find({ service: serviceType }).select(
-      "firmname profilePhoto description budget"
+    const { firmname, state, availability, sort } = req.query;
+
+    const filterConditions = { service: serviceType };
+
+    if (firmname) {
+      filterConditions.firmname = { $regex: firmname, $options: "i" }; // case-insensitive search
+    }
+    if (state) {
+      filterConditions.state = { $regex: state, $options: "i" };
+    }
+    if (availability) {
+      const availabilityDate = new Date(availability);
+      filterConditions.availabilityDates = availabilityDate;
+    }
+
+    let services = Provider.find(filterConditions).select(
+      "firmname profilePhoto description budget rating"
     );
 
-    if (services.length === 0) {
-      return res.send(`No ${serviceType}s found.`);
+    if (sort === "rating") {
+      services = services.sort({ rating: -1 });
+    } else if (sort === "budget") {
+      services = services.sort({ budget: 1 });
     }
+
+    services = await services.exec();
 
     res.render("services/services", {
       services: services,
       serviceType: serviceType,
+      firmname,
+      state,
+      availability,
     });
   } catch (error) {
     console.error(`Error fetching ${req.params.type} services:`, error);
     res.status(500).send("Server Error");
   }
 };
-
 const getServiceById = async (req, res) => {
   try {
     if (!req.isAuthenticated) {
