@@ -5,44 +5,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= serviceType %> Details</title>
     <link rel="stylesheet" href="/stylesheets/index.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+
+      .service-details {
+        max-width: 800px;
+        margin: 20px auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        font-size: 2em;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      p {
+        font-size: 1.1em;
+        line-height: 1.6;
+        color: #555;
+      }
+
+      .profile-photo {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        margin-bottom: 20px;
+      }
+
+      .photo-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin: 20px 0;
+      }
+
+      .photo-gallery img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s;
+      }
+
+      .photo-gallery img:hover {
+        transform: scale(1.05);
+      }
+
+      .btn-book {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        cursor: pointer;
+        font-size: 1.1em;
+        margin-top: 10px;
+        transition: background-color 0.3s;
+      }
+
+      .btn-book:hover {
+        background-color: #0056b3;
+      }
+
+      a {
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
   </head>
-  <style>
-    .btn-book {
-      background-color: #007bff;
-      color: #fff;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 5px;
-      text-decoration: none;
-      display: inline-block;
-      cursor: pointer;
-    }
-  </style>
   <body>
-    <h1><%= serviceType %> Details</h1>
     <div class="service-details">
-      <h2><%= service.firmname %></h2>
-      <% if (service.photos && service.photos.length > 0) { %>
+      <h1><%= service.firmname %></h1>
+      <% if (service.profilePhoto) { %>
+      <img
+        class="profile-photo"
+        src="/<%= service.profilePhoto %>"
+        alt="<%= serviceType %> profilePhoto"
+      />
+      <% } %> <% if (service.photos && service.photos.length > 0) { %>
+      <h3>ALL PHOTOS</h3>
       <div class="photo-gallery">
         <% service.photos.forEach(photo => { %>
-        <img
-          src="/<%= photo %>"
-          alt="Service Photo"
-          style="max-width: 300px; margin-bottom: 10px"
-        />
+        <img src="/<%= photo %>" alt="Service Photo" />
         <% }) %>
       </div>
       <% } %>
       <p><%= service.description %></p>
       <p>Budget: <%= service.budget %></p>
       <% if (service.social) { %>
-      <a href="<%= service.social %>">Instagram</a>
+      <p><a href="<%= service.social %>">Instagram</a></p>
       <% } %>
       <p>Whatsapp number: <%= service.contact %></p>
+      <button class="btn-book" onclick="confirmBooking('<%= service._id %>')">
+        Book now
+      </button>
     </div>
-    <button class="btn-book" onclick="confirmBooking('<%= service._id %>')">
-      Book now
-    </button>
 
     <script>
       function confirmBooking(providerId) {

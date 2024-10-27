@@ -8,7 +8,7 @@ const getServicesByType = async (req, res) => {
     }
     const serviceType = req.params.type.toLowerCase();
     const services = await Provider.find({ service: serviceType }).select(
-      "firmname photos description budget"
+      "firmname profilePhoto description budget"
     );
 
     if (services.length === 0) {
@@ -25,11 +25,10 @@ const getServicesByType = async (req, res) => {
   }
 };
 
-// Get a specific service by ID
 const getServiceById = async (req, res) => {
   try {
     if (!req.isAuthenticated) {
-      return res.redirect("/loginUser");
+      return res.redirect("user/login");
     }
 
     const serviceType =
@@ -40,14 +39,13 @@ const getServiceById = async (req, res) => {
       return res.status(404).send("Service not found.");
     }
 
-    res.render("serviceDetail", { service, serviceType });
+    res.render("services/serviceDetail", { service, serviceType });
   } catch (error) {
     console.error(`Error fetching ${req.params.type} details:`, error);
     res.status(500).send("Server Error");
   }
 };
 
-// Book a provider for a specific service type
 const bookService = async (req, res) => {
   try {
     if (!req.isAuthenticated) {
@@ -61,8 +59,6 @@ const bookService = async (req, res) => {
     if (!eventDate) {
       return res.status(400).json({ message: "Event date is required." });
     }
-
-    // Convert the eventDate to a Date object
     const eventDateObj = new Date(eventDate);
     if (isNaN(eventDateObj.getTime())) {
       return res.status(400).json({ message: "Invalid event date." });
@@ -75,7 +71,6 @@ const bookService = async (req, res) => {
 
     const serviceType = provider.service;
 
-    // Check if the user has already booked a provider for the same service type and event date
     const existingBooking = await Booking.findOne({
       userId: userId,
       serviceType: serviceType,
@@ -88,7 +83,6 @@ const bookService = async (req, res) => {
       });
     }
 
-    // Proceed with booking
     const newBooking = new Booking({
       userId,
       providerId,
@@ -136,7 +130,6 @@ const getUserBookings = async (req, res) => {
   }
 };
 
-// Get bookings for providers
 const getProviderBookings = async (req, res) => {
   try {
     if (!req.isAuthenticated || !req.user.isProvider) {

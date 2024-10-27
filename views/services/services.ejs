@@ -52,8 +52,11 @@
         class="service-card"
         data-url="/services/<%= serviceType.toLowerCase() %>/<%= service._id %>"
       >
-        <% if (service.photos && service.photos.length > 0) { %>
-        <img src="/<%= service.photos[0] %>" alt="<%= serviceType %> photo" />
+        <% if (service.profilePhoto) { %>
+        <img
+          src="/<%= service.profilePhoto %>"
+          alt="<%= serviceType %> profilePhoto"
+        />
         <% } else { %>
         <p>No photo available</p>
         <% } %>
