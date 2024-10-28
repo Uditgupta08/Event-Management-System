@@ -47,8 +47,8 @@
     <div class="dates-container">
       <h2>Your Busy Dates:</h2>
       <div id="busyDatesList">
-        <% if (busyDates && busyDates.length > 0) { %> <% busyDates.forEach(date
-        => { %>
+        <% if (busyDates && busyDates.length > 0) { %> <%
+        busyDates.forEach(function(date) { %>
         <span class="busy-date"><%= date.toDateString() %></span>
         <% }); %> <% } else { %>
         <p>No busy dates set.</p>
@@ -56,17 +56,14 @@
       </div>
     </div>
 
-    <form action="/provider/busy-dates" method="POST">
-      <label for="busyDates">Set Busy Dates (comma separated):</label>
-      <input
-        type="text"
-        name="busyDates"
-        placeholder="YYYY-MM-DD, YYYY-MM-DD"
-      />
+    <form action="/set-availability" method="POST">
+      <label for="busyStartDate">Set Busy Dates (from - to):</label><br />
+      <input type="date" name="busyStartDate" required />
+      <input type="date" name="busyEndDate" required />
       <button type="submit" class="button">Set Busy Dates</button>
     </form>
 
-    <form action="/provider/available-dates" method="POST">
+    <form action="/available-dates" method="POST">
       <label for="availableDates">Set Available Dates (comma separated):</label>
       <input
         type="text"

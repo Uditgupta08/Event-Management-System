@@ -11,9 +11,8 @@ const getServicesByType = async (req, res) => {
     const { firmname, state, availability, sort } = req.query;
 
     const filterConditions = { service: serviceType };
-
     if (firmname) {
-      filterConditions.firmname = { $regex: firmname, $options: "i" }; // case-insensitive search
+      filterConditions.firmname = { $regex: firmname, $options: "i" };
     }
     if (state) {
       filterConditions.state = { $regex: state, $options: "i" };

@@ -6,6 +6,7 @@ const cors = require("cors");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const methodOverride = require("method-override");
 const connectDB = require("./config/db");
 require("dotenv").config();
 connectDB();
@@ -13,6 +14,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 app.use(cookieParser());
+app.use(methodOverride("_method"));
 
 app.set("view engine", "ejs");
 app.use(express.json());
