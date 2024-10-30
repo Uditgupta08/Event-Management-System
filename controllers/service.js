@@ -8,7 +8,8 @@ const getServicesByType = async (req, res) => {
     }
 
     const serviceType = req.params.type.toLowerCase();
-    const { firmname, state, availability, sort } = req.query;
+    const { firmname, state, startDate, startTime, endDate, endTime, sort } =
+      req.query;
 
     const filterConditions = { service: serviceType };
     if (firmname) {
@@ -17,9 +18,14 @@ const getServicesByType = async (req, res) => {
     if (state) {
       filterConditions.state = { $regex: state, $options: "i" };
     }
-    if (availability) {
-      const availabilityDate = new Date(availability);
-      filterConditions.availabilityDates = availabilityDate;
+
+    if (startDate && startTime && endDate && endTime) {
+      const startDateTime = new Date(`${startDate}T${startTime}`);
+      const endDateTime = new Date(`${endDate}T${endTime}`);
+      filterConditions.availabilityDates = {
+        $gte: startDateTime,
+        $lte: endDateTime,
+      };
     }
 
     let services = Provider.find(filterConditions).select(
@@ -39,7 +45,10 @@ const getServicesByType = async (req, res) => {
       serviceType: serviceType,
       firmname,
       state,
-      availability,
+      startDate,
+      startTime,
+      endDate,
+      endTime,
     });
   } catch (error) {
     console.error(`Error fetching ${req.params.type} services:`, error);
@@ -75,12 +84,12 @@ const bookService = async (req, res) => {
 
     const providerId = req.params.id;
     const userId = req.user._id;
-    const { eventDate } = req.body;
+    const { date } = req.body;
 
-    if (!eventDate) {
+    if (!date) {
       return res.status(400).json({ message: "Event date is required." });
     }
-    const eventDateObj = new Date(eventDate);
+    const eventDateObj = new Date(date);
     if (isNaN(eventDateObj.getTime())) {
       return res.status(400).json({ message: "Invalid event date." });
     }
@@ -112,7 +121,7 @@ const bookService = async (req, res) => {
     });
 
     await newBooking.save();
-    res.status(200).json({ success: true, message: "Booking confirmed!" });
+    res.status(200).json({ success: true, message: "Booking request sent!" });
   } catch (error) {
     console.error("Error creating booking:", error);
     res.status(500).json({ success: false, message: "Server Error" });

@@ -89,6 +89,26 @@
       a:hover {
         text-decoration: underline;
       }
+      #bookingmodel {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .model-content {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
@@ -114,21 +134,23 @@
       <p><a href="<%= service.social %>">Instagram</a></p>
       <% } %>
       <p>Whatsapp number: <%= service.contact %></p>
-      <button class="btn-book" onclick="confirmBooking('<%= service._id %>')">
+      <button class="btn-book" onclick="openmodel('<%= service._id %>')">
         Book now
       </button>
     </div>
-    <div id="bookingModal" style="display: none">
-      <div class="modal-content">
+
+    <div id="bookingmodel" style="display: none">
+      <div class="model-content">
         <h2>Select a Date for Booking</h2>
-        <input type="date" id="bookingDate" />
+        <input type="date" id="bookingDate" required />
         <button id="confirmDate">Request Booking</button>
-        <button onclick="closeModal()">Cancel</button>
+        <button onclick="closemodel()">Cancel</button>
       </div>
     </div>
+
     <script>
-      function openModal(serviceId) {
-        document.getElementById("bookingModal").style.display = "block";
+      function openmodel(serviceId) {
+        document.getElementById("bookingmodel").style.display = "block";
         document.getElementById("confirmDate").onclick = function () {
           const selectedDate = document.getElementById("bookingDate").value;
           if (selectedDate) {
@@ -139,13 +161,13 @@
         };
       }
 
-      function closeModal() {
-        document.getElementById("bookingModal").style.display = "none";
+      function closemodel() {
+        document.getElementById("bookingmodel").style.display = "none";
       }
 
       async function requestBooking(serviceId, date) {
         try {
-          const response = await fetch(`/services/book/${serviceId}`, {
+          const response = await fetch(`/bookService/${serviceId}`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -154,36 +176,14 @@
           });
           const data = await response.json();
           if (data.success) {
-            alert("Booking request sent to provider.");
-            closeModal();
+            alert(data.message);
+            closemodel();
+            window.location.href = "/myBookings";
           } else {
             alert(data.message || "Booking request failed.");
           }
         } catch (error) {
           console.error("Error sending booking request:", error);
-        }
-      }
-      function confirmBooking(providerId) {
-        if (confirm("Are you sure you want to book this service?")) {
-          fetch(`/bookService/${providerId}`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.success) {
-                alert("Booking confirmed!");
-                window.location.href = "/myBookings";
-              } else {
-                alert("Booking failed. Please try again.");
-              }
-            })
-            .catch((error) => {
-              console.error("Error:", error);
-              alert("An error occurred. Please try again.");
-            });
         }
       }
     </script>

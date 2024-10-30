@@ -42,29 +42,102 @@
         display: inline-block;
         cursor: pointer;
       }
+      #filterForm {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        background-color: #f9f9f9;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        max-width: 600px;
+      }
+      #filterForm label {
+        flex-basis: 100%;
+        font-weight: bold;
+      }
+      #filterForm input,
+      #filterForm select,
+      #filterForm button {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+      }
+      #filterForm input[type="text"],
+      #filterForm input[type="date"],
+      #filterForm input[type="time"],
+      #filterForm select {
+        flex: 1 1 180px;
+      }
+      #filterForm button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+      #filterForm button:hover {
+        background-color: #0056b3;
+      }
+
+      .service-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
     </style>
   </head>
   <body>
     <h1><%= serviceType %>s</h1>
     <form id="filterForm" method="GET" action="">
+      <label for="firmname">Search by firm name:</label>
       <input
         type="text"
+        id="firmname"
         name="firmname"
-        placeholder="Search by firm name"
+        placeholder="Firm Name"
         value="<%= firmname %>"
       />
+
+      <label for="state">Enter state:</label>
       <input
         type="text"
+        id="state"
         name="state"
-        placeholder="Enter state"
+        placeholder="State"
         value="<%= state %>"
       />
-      <input type="date" name="availability" value="<%= availability %>" />
+
+      <label for="startDate">Event Start Date:</label>
+      <input
+        type="date"
+        id="startDate"
+        name="startDate"
+        value="<%= startDate %>"
+      />
+
+      <label for="startTime">Event Start Time:</label>
+      <input
+        type="time"
+        id="startTime"
+        name="startTime"
+        value="<%= startTime %>"
+      />
+
+      <label for="endDate">Event End Date:</label>
+      <input type="date" id="endDate" name="endDate" value="<%= endDate %>" />
+
+      <label for="endTime">Event End Time:</label>
+      <input type="time" id="endTime" name="endTime" value="<%= endTime %>" />
+
+      <label for="sort">Sort by:</label>
       <select name="sort" id="sort">
         <option value="">Sort by</option>
         <option value="rating">Rating</option>
         <option value="budget">Budget</option>
       </select>
+
       <button type="submit">Apply Filters</button>
     </form>
 

@@ -3,25 +3,32 @@ const Provider = require("../../models/provider");
 const setProviderBusyDates = async (req, res) => {
   try {
     const providerId = req.user._id;
-    const { busyStartDate, busyEndDate } = req.body;
+    const { busyStartDate, busyStartTime, busyEndDate, busyEndTime } = req.body;
 
-    const startDate = new Date(busyStartDate);
-    const endDate = new Date(busyEndDate);
+    const startDateTime = new Date(`${busyStartDate}T${busyStartTime}`);
+    const endDateTime = new Date(`${busyEndDate}T${busyEndTime}`);
 
-    if (endDate < startDate) {
+    if (endDateTime < startDateTime) {
       return res
         .status(400)
-        .json({ error: "End date must be after start date." });
+        .json({
+          error: "End date and time must be after start date and time.",
+        });
     }
 
-    const busyDatesArr = [];
-    for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
-      busyDatesArr.push(new Date(d));
+    const busyPeriodsArr = [];
+    for (
+      let d = new Date(startDateTime);
+      d <= endDateTime;
+      d.setDate(d.getDate() + 1)
+    ) {
+      busyPeriodsArr.push(new Date(d));
     }
 
     const provider = await Provider.findById(providerId).exec();
-    provider.manuallyBusyDates.push(...busyDatesArr);
+    provider.manuallyBusyDates.push(...busyPeriodsArr);
     await provider.save();
+
     res.render("provider/setAvailability", {
       busyDates: provider.manuallyBusyDates,
     });
@@ -45,19 +52,19 @@ const getSetAvailability = async (req, res) => {
 const setAvailableDates = async (req, res) => {
   try {
     const providerId = req.user._id;
-    const availableDatesArr = req.body.availableDates
+    const availablePeriodsArr = req.body.availableDates
       .split(",")
-      .map((date) => new Date(date.trim()));
+      .map((datetime) => new Date(datetime.trim()));
 
     const provider = await Provider.findById(providerId).exec();
     provider.manuallyBusyDates = provider.manuallyBusyDates.filter(
       (date) =>
-        !availableDatesArr.some(
-          (availableDate) =>
-            availableDate.toDateString() === date.toDateString()
+        !availablePeriodsArr.some(
+          (availableDate) => availableDate.toISOString() === date.toISOString()
         )
     );
     await provider.save();
+
     res.render("provider/setAvailability", {
       busyDates: provider.manuallyBusyDates,
     });
