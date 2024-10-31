@@ -1,44 +1,16 @@
 const express = require("express");
-const socketIo = require("socket.io");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const session = require("express-session");
-const cookieParser = require("cookie-parser");
-const path = require("path");
-const methodOverride = require("method-override");
 const connectDB = require("./config/db");
+const expressConfig = require("./config/expressConfig");
 const { verifyToken } = require("./middlewares/auth");
+const routes = require("./routes/index");
 require("dotenv").config();
-connectDB();
+
 const app = express();
-app.use(bodyParser.json());
-app.use(cors());
-app.use(cookieParser());
-app.use(methodOverride("_method"));
 
-app.set("view engine", "ejs");
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+connectDB();
+expressConfig(app);
 
-app.use(
-  session({
-    secret: "key",
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-const userRoutes = require("./routes/user");
-const providerRoutes = require("./routes/provider");
-const todoRoutes = require("./routes/todo");
-const serviceRoutes = require("./routes/service");
-
-app.use("/", userRoutes);
-app.use("/", providerRoutes);
-app.use("/", todoRoutes);
-app.use("/", serviceRoutes);
+app.use("/", routes);
 
 app.get("/", verifyToken, (req, res) => {
   if (req.user) {
