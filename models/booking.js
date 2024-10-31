@@ -23,9 +23,17 @@ const bookingSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  endDate: {
+    type: Date,
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  status: {
+    type: String,
+    default: "Pending",
   },
 });
 

@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 const methodOverride = require("method-override");
 const connectDB = require("./config/db");
+const { verifyToken } = require("./middlewares/auth");
 require("dotenv").config();
 connectDB();
 const app = express();
@@ -39,9 +40,13 @@ app.use("/", providerRoutes);
 app.use("/", todoRoutes);
 app.use("/", serviceRoutes);
 
-app.get("/", (req, res) => {
-  res.render("index", { user: req.user });
+app.get("/", verifyToken, (req, res) => {
+  if (req.user) {
+    return res.render("index", { user: req.user });
+  }
+  res.render("index", { user: null });
 });
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

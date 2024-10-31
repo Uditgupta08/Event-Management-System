@@ -26,7 +26,6 @@ const loginUser = async (req, res) => {
       expiresIn: "1d",
     });
     res.cookie("accessToken", accessToken, { httpOnly: true, sameSite: "lax" });
-    console.log(req.cookies);
     res.status(200).render("index", { user });
   } catch (error) {
     console.error("Error", error);

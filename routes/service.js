@@ -2,13 +2,14 @@ const express = require("express");
 const serviceRoutes = express.Router();
 const { verifyToken } = require("../middlewares/auth");
 const {
-  getServicesByType,
-  getServiceById,
   bookService,
   getUserBookings,
   getProviderBookings,
-} = require("../controllers/service");
-
+} = require("../controllers/Service/BookingController");
+const {
+  getServicesByType,
+  getServiceById,
+} = require("../controllers/Service/ServiceContoller");
 serviceRoutes.get("/services/:type", verifyToken, getServicesByType);
 
 serviceRoutes.get("/services/:type/:id", verifyToken, getServiceById);

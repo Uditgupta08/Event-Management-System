@@ -9,24 +9,15 @@ const setProviderBusyDates = async (req, res) => {
     const endDateTime = new Date(`${busyEndDate}T${busyEndTime}`);
 
     if (endDateTime < startDateTime) {
-      return res
-        .status(400)
-        .json({
-          error: "End date and time must be after start date and time.",
-        });
+      return res.status(400).json({
+        error: "End date and time must be after start date and time.",
+      });
     }
 
-    const busyPeriodsArr = [];
-    for (
-      let d = new Date(startDateTime);
-      d <= endDateTime;
-      d.setDate(d.getDate() + 1)
-    ) {
-      busyPeriodsArr.push(new Date(d));
-    }
+    const busyPeriod = { start: startDateTime, end: endDateTime };
 
     const provider = await Provider.findById(providerId).exec();
-    provider.manuallyBusyDates.push(...busyPeriodsArr);
+    provider.manuallyBusyDates.push(busyPeriod);
     await provider.save();
 
     res.render("provider/setAvailability", {

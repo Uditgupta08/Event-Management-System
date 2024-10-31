@@ -48,15 +48,19 @@
       <h2>Your Busy Dates:</h2>
       <div id="busyDatesList">
         <% if (busyDates && busyDates.length > 0) { %> <%
-        busyDates.forEach(function(date) { %>
-        <span class="busy-date"
-          ><%= date.toDateString() %> - <%= date.toLocaleTimeString() %></span
-        >
-        <% }); %> <% } else { %>
+        busyDates.forEach(function(period) { %> <% if (period && period.start &&
+        period.end) { %>
+        <span class="busy-date">
+          <%= period.start.toDateString() %> - <%=
+          period.start.toLocaleTimeString() %> to <%= period.end.toDateString()
+          %> - <%= period.end.toLocaleTimeString() %>
+        </span>
+        <% } %> <% }); %> <% } else { %>
         <p>No busy dates set.</p>
         <% } %>
       </div>
     </div>
+
     <form action="/set-availability" method="POST">
       <label for="busyStartDate">Set Busy Dates (from - to):</label><br />
       <input type="date" name="busyStartDate" required />

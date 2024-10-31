@@ -58,6 +58,13 @@ const providerSchema = new mongoose.Schema({
   manuallyBusyDates: {
     type: [Date],
   },
+  manuallyBusyDates: [
+    {
+      start: { type: Date },
+      end: { type: Date },
+    },
+  ],
+
   availabilityDates: {
     type: [Date],
   },

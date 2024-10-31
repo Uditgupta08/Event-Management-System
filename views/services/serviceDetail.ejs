@@ -141,8 +141,21 @@
 
     <div id="bookingmodel" style="display: none">
       <div class="model-content">
-        <h2>Select a Date for Booking</h2>
-        <input type="date" id="bookingDate" required />
+        <h2>Select a Date and Time for Booking</h2>
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" required />
+        <label for="startTime">Start Time:</label>
+        <input type="time" id="startTime" required />
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" required />
+        <label for="endTime">End Time:</label>
+        <input type="time" id="endTime" required />
+        <input
+          type="number"
+          id="bookingBudget"
+          placeholder="Enter your budget"
+          required
+        />
         <button id="confirmDate">Request Booking</button>
         <button onclick="closemodel()">Cancel</button>
       </div>
@@ -152,27 +165,35 @@
       function openmodel(serviceId) {
         document.getElementById("bookingmodel").style.display = "block";
         document.getElementById("confirmDate").onclick = function () {
-          const selectedDate = document.getElementById("bookingDate").value;
-          if (selectedDate) {
-            requestBooking(serviceId, selectedDate);
+          const startDate = document.getElementById("startDate").value;
+          const startTime = document.getElementById("startTime").value;
+          const endDate = document.getElementById("endDate").value;
+          const endTime = document.getElementById("endTime").value;
+
+          if (startDate && startTime && endDate && endTime) {
+            const startDateTime = new Date(`${startDate}T${startTime}`);
+            const endDateTime = new Date(`${endDate}T${endTime}`);
+
+            if (startDateTime < endDateTime) {
+              requestBooking(serviceId, startDateTime, endDateTime);
+            } else {
+              alert("End time must be after start time.");
+            }
           } else {
-            alert("Please select a date.");
+            alert("Please fill in all fields.");
           }
         };
       }
 
-      function closemodel() {
-        document.getElementById("bookingmodel").style.display = "none";
-      }
-
-      async function requestBooking(serviceId, date) {
+      async function requestBooking(serviceId, startDateTime, endDateTime) {
+        const budget = document.getElementById("bookingBudget").value;
         try {
           const response = await fetch(`/bookService/${serviceId}`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ date }),
+            body: JSON.stringify({ startDateTime, endDateTime, budget }),
           });
           const data = await response.json();
           if (data.success) {

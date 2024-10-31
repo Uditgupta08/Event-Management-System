@@ -1,80 +1,5 @@
-const Provider = require("../models/provider");
-const Booking = require("../models/booking");
-
-const getServicesByType = async (req, res) => {
-  try {
-    if (!req.isAuthenticated) {
-      return res.redirect("user/login");
-    }
-
-    const serviceType = req.params.type.toLowerCase();
-    const { firmname, state, startDate, startTime, endDate, endTime, sort } =
-      req.query;
-
-    const filterConditions = { service: serviceType };
-    if (firmname) {
-      filterConditions.firmname = { $regex: firmname, $options: "i" };
-    }
-    if (state) {
-      filterConditions.state = { $regex: state, $options: "i" };
-    }
-
-    if (startDate && startTime && endDate && endTime) {
-      const startDateTime = new Date(`${startDate}T${startTime}`);
-      const endDateTime = new Date(`${endDate}T${endTime}`);
-      filterConditions.availabilityDates = {
-        $gte: startDateTime,
-        $lte: endDateTime,
-      };
-    }
-
-    let services = Provider.find(filterConditions).select(
-      "firmname profilePhoto description budget rating"
-    );
-
-    if (sort === "rating") {
-      services = services.sort({ rating: -1 });
-    } else if (sort === "budget") {
-      services = services.sort({ budget: 1 });
-    }
-
-    services = await services.exec();
-
-    res.render("services/services", {
-      services: services,
-      serviceType: serviceType,
-      firmname,
-      state,
-      startDate,
-      startTime,
-      endDate,
-      endTime,
-    });
-  } catch (error) {
-    console.error(`Error fetching ${req.params.type} services:`, error);
-    res.status(500).send("Server Error");
-  }
-};
-const getServiceById = async (req, res) => {
-  try {
-    if (!req.isAuthenticated) {
-      return res.redirect("user/login");
-    }
-
-    const serviceType =
-      req.params.type.charAt(0).toUpperCase() + req.params.type.slice(1);
-    const service = await Provider.findById(req.params.id).exec();
-
-    if (!service) {
-      return res.status(404).send("Service not found.");
-    }
-
-    res.render("services/serviceDetail", { service, serviceType });
-  } catch (error) {
-    console.error(`Error fetching ${req.params.type} details:`, error);
-    res.status(500).send("Server Error");
-  }
-};
+const Booking = require("../../models/booking");
+const Provider = require("../../models/provider");
 
 const bookService = async (req, res) => {
   try {
@@ -84,14 +9,31 @@ const bookService = async (req, res) => {
 
     const providerId = req.params.id;
     const userId = req.user._id;
-    const { date } = req.body;
+    const { startDateTime, endDateTime, budget } = req.body;
 
-    if (!date) {
-      return res.status(400).json({ message: "Event date is required." });
+    console.log("User ID:", userId);
+    console.log("Provider ID:", providerId);
+    console.log("Request Body:", req.body);
+
+    if (!startDateTime || !endDateTime || !budget) {
+      return res
+        .status(400)
+        .json({ message: "Event date and time and budget are required." });
     }
-    const eventDateObj = new Date(date);
-    if (isNaN(eventDateObj.getTime())) {
+
+    const startEventDateObj = new Date(startDateTime);
+    const endEventDateObj = new Date(endDateTime);
+    if (
+      isNaN(startEventDateObj.getTime()) ||
+      isNaN(endEventDateObj.getTime())
+    ) {
       return res.status(400).json({ message: "Invalid event date." });
+    }
+
+    if (startEventDateObj >= endEventDateObj) {
+      return res
+        .status(400)
+        .json({ message: "Start time must be before end time." });
     }
 
     const provider = await Provider.findById(providerId).exec();
@@ -104,12 +46,15 @@ const bookService = async (req, res) => {
     const existingBooking = await Booking.findOne({
       userId: userId,
       serviceType: serviceType,
-      eventDate: eventDateObj,
+      $or: [
+        { eventDate: { $gte: startEventDateObj, $lt: endEventDateObj } },
+        { endDate: { $gte: startEventDateObj, $lt: endEventDateObj } },
+      ],
     }).exec();
 
     if (existingBooking) {
       return res.status(400).json({
-        message: `You have already booked a ${serviceType} for this date.`,
+        message: `You have already booked a ${serviceType} for this time period.`,
       });
     }
 
@@ -117,9 +62,12 @@ const bookService = async (req, res) => {
       userId,
       providerId,
       serviceType,
-      eventDate: eventDateObj,
+      eventDate: startEventDateObj,
+      endDate: endEventDateObj,
+      budget,
     });
 
+    console.log("New booking object:", newBooking);
     await newBooking.save();
     res.status(200).json({ success: true, message: "Booking request sent!" });
   } catch (error) {
@@ -127,6 +75,7 @@ const bookService = async (req, res) => {
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
+
 const getUserBookings = async (req, res) => {
   try {
     if (!req.isAuthenticated) {
@@ -194,8 +143,6 @@ const getProviderBookings = async (req, res) => {
 };
 
 module.exports = {
-  getServicesByType,
-  getServiceById,
   bookService,
   getUserBookings,
   getProviderBookings,

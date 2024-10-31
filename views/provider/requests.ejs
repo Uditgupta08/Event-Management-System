@@ -9,20 +9,27 @@
   <body>
     <h2>Your Booking Requests</h2>
     <ul>
-      <% requests.forEach(request => { %>
+      <% if (requests.length > 0) { %> <% requests.forEach(request => { %>
       <li>
-        <strong>Request from:</strong> <%= request.userId.name %> (<%=
+        <strong>Request from:</strong>
+        <% if (request.userId) { %> <%= request.userId.fullname %> (<%=
         request.userId.email %>)<br />
+        <% } else { %>
+        <span>No user information available</span><br />
+        <% } %>
         <strong>Status:</strong> <%= request.status %><br />
         <form action="/provider/requests/<%= request._id %>" method="POST">
-          <select name="status">
+          <select name="status" required>
+            <option value="">Select Status</option>
             <option value="confirmed">Confirm</option>
             <option value="rejected">Reject</option>
           </select>
           <button type="submit">Update Status</button>
         </form>
       </li>
-      <% }); %>
+      <% }); %> <% } else { %>
+      <li>No pending requests available.</li>
+      <% } %>
     </ul>
     <a href="/my-bookings">Back to My Bookings</a>
   </body>

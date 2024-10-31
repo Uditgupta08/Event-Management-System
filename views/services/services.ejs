@@ -142,33 +142,58 @@
     </form>
 
     <div class="service-list">
-      <% if (services.length > 0) { %> <% services.forEach(service => { %>
-      <div
-        class="service-card"
-        data-url="/services/<%= serviceType.toLowerCase() %>/<%= service._id %>"
-      >
-        <% if (service.profilePhoto) { %>
-        <img
-          src="/<%= service.profilePhoto %>"
-          alt="<%= serviceType %> profilePhoto"
-        />
-        <% } else { %>
-        <p>No photo available</p>
-        <% } %>
-        <h2><%= service.firmname %></h2>
-        <p><%= service.description %></p>
-        <p>Budget: $<%= service.budget %></p>
-        <p>Rating: <%= service.rating %></p>
-        <a
-          href="/services/<%= serviceType.toLowerCase() %>/<%= service._id %>"
-          class="btn-book"
-          >Book Now</a
-        >
-      </div>
-      <% }) %> <% } else { %>
-      <p>No services available.</p>
+      <% if (services.length > 0) { %>
+        <% services.forEach(service => { %>
+          <div
+            class="service-card"
+            data-url="/services/<%= serviceType.toLowerCase() %>/<%= service._id %>"
+          >
+            <% if (service.profilePhoto) { %>
+              <img
+                src="/<%= service.profilePhoto %>"
+                alt="<%= serviceType %> profilePhoto"
+              />
+            <% } else { %>
+              <p>No photo available</p>
+            <% } %>
+            <h2><%= service.firmname %></h2>
+            <p><%= service.description %></p>
+            <p>Budget: $<%= service.budget %></p>
+            <p>Rating: <%= service.rating %></p>
+            <a
+              href="/services/<%= serviceType.toLowerCase() %>/<%= service._id %>"
+              class="btn-book"
+              >Book Now</a
+            >
+          </div>
+        <% }) %>
+      <% } else { %>
+        <p>No services available.</p>
       <% } %>
-      <a href="/">Back</a>
+      <% if (unavailableServices.length > 0) { %>
+        <h2>Unavailable Providers</h2>
+        <div class="service-list">
+          <% unavailableServices.forEach(service => { %>
+            <div class="service-card">
+              <% if (service.profilePhoto) { %>
+                <img
+                  src="/<%= service.profilePhoto %>"
+                  alt="<%= serviceType %> profilePhoto"
+                />
+              <% } else { %>
+                <p>No photo available</p>
+              <% } %>
+              <h2><%= service.firmname %></h2>
+              <p><%= service.description %></p>
+              <p>Budget: $<%= service.budget %></p>
+              <p>Rating: <%= service.rating %></p>
+              <p>Status: Unavailable for the selected dates.</p>
+            </div>
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
+    <a href="/">Back</a>
     </div>
   </body>
 </html>
