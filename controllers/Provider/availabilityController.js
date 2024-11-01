@@ -1,6 +1,8 @@
 const Provider = require("../../models/provider");
+const Booking = require("../../models/booking");
 
 const setProviderBusyDates = async (req, res) => {
+  console.log("setProviderBusyDates called");
   try {
     const providerId = req.user._id;
     const { busyStartDate, busyStartTime, busyEndDate, busyEndTime } = req.body;
@@ -18,12 +20,32 @@ const setProviderBusyDates = async (req, res) => {
 
     const provider = await Provider.findById(providerId).exec();
     provider.manuallyBusyDates.push(busyPeriod);
-    await provider.save();
+    const bookings = await Booking.find({ providerId: providerId }).exec();
 
+    console.log("Existing bookings:", bookings);
+
+    bookings.forEach((booking) => {
+      const bookingStart = booking.eventDate;
+      const bookingEnd = booking.endDate;
+
+      if (bookingStart && bookingEnd) {
+        provider.manuallyBusyDates.push({
+          start: bookingStart,
+          end: bookingEnd,
+        });
+        console.log(
+          "Added busy period from booking:",
+          bookingStart,
+          bookingEnd
+        );
+      }
+    });
+    await provider.save();
     res.render("provider/setAvailability", {
       busyDates: provider.manuallyBusyDates,
     });
   } catch (error) {
+    console.error("Error setting busy dates:", error); // Log error
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
@@ -43,23 +65,43 @@ const getSetAvailability = async (req, res) => {
 const setAvailableDates = async (req, res) => {
   try {
     const providerId = req.user._id;
-    const availablePeriodsArr = req.body.availableDates
-      .split(",")
-      .map((datetime) => new Date(datetime.trim()));
+
+    const {
+      availableStartDate,
+      availableStartTime,
+      availableEndDate,
+      availableEndTime,
+    } = req.body;
+
+    const startDateTime = new Date(
+      `${availableStartDate}T${availableStartTime}`
+    );
+    const endDateTime = new Date(`${availableEndDate}T${availableEndTime}`);
+
+    if (endDateTime <= startDateTime) {
+      return res.status(400).json({
+        error: "End date and time must be after start date and time.",
+      });
+    }
 
     const provider = await Provider.findById(providerId).exec();
+
+    // Filter out busy dates that overlap with the new available dates
     provider.manuallyBusyDates = provider.manuallyBusyDates.filter(
-      (date) =>
-        !availablePeriodsArr.some(
-          (availableDate) => availableDate.toISOString() === date.toISOString()
-        )
+      (busyDate) =>
+        !(startDateTime < busyDate.end && endDateTime > busyDate.start)
     );
+
+    // Assuming you want to add the new available dates into the provider record
+    provider.availableDates.push({ start: startDateTime, end: endDateTime });
+
     await provider.save();
 
     res.render("provider/setAvailability", {
       busyDates: provider.manuallyBusyDates,
     });
   } catch (error) {
+    console.error("Error in setAvailableDates:", error);
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };

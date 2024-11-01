@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/stylesheets/index.css" />
-    <title>Previous Bookings</title>
+    <title>My Bookings</title>
   </head>
   <body>
     <div class="navbar">
@@ -23,12 +23,48 @@
         </div>
       </div>
     </div>
-    <h1>Previous Bookings</h1>
-    <% if (previousBookings.length > 0) { %> <% previousBookings.forEach(booking
-    => { %>
+
+    <h1>My Bookings</h1>
+
+    <h2>Upcoming Bookings</h2>
+    <% if (upcomingBookings.length > 0) { %> <%
+    upcomingBookings.forEach(function(booking) { %>
     <div class="booking">
-      <h3>User: <%= booking.userId.name %></h3>
-      <p>Booked on: <%= booking.createdAt.toDateString() %></p>
+      <h3>
+        Provider: <%= booking.providerId ? booking.providerId.name : "Provider
+        not available" %>
+      </h3>
+      <p>
+        Event Start Date: <%= booking.eventDate.toDateString() %> at <%=
+        booking.eventDate.toLocaleTimeString() %>
+      </p>
+      <p>
+        Event End Date: <%= booking.endDate.toDateString() %> at <%=
+        booking.endDate.toLocaleTimeString() %>
+      </p>
+      <p>Status: <%= booking.status %></p>
+    </div>
+    <% }); %> <% } else { %>
+    <p>No upcoming bookings.</p>
+    <% } %>
+
+    <h2>Previous Bookings</h2>
+    <% if (previousBookings.length > 0) { %> <%
+    previousBookings.forEach(function(booking) { %>
+    <div class="booking">
+      <h3>
+        Provider: <%= booking.providerId ? booking.providerId.name : "Provider
+        not available" %>
+      </h3>
+      <p>
+        Event Start Date: <%= booking.eventDate.toDateString() %> at <%=
+        booking.eventDate.toLocaleTimeString() %>
+      </p>
+      <p>
+        Event End Date: <%= booking.endDate.toDateString() %> at <%=
+        booking.endDate.toLocaleTimeString() %>
+      </p>
+      <p>Status: <%= booking.status %></p>
     </div>
     <% }); %> <% } else { %>
     <p>No previous bookings.</p>

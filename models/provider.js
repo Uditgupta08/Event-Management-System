@@ -65,9 +65,12 @@ const providerSchema = new mongoose.Schema({
     },
   ],
 
-  availabilityDates: {
-    type: [Date],
-  },
+  availableDates: [
+    {
+      start: Date,
+      end: Date,
+    },
+  ],
 });
 
 providerSchema.pre("save", async function (next) {

@@ -70,15 +70,18 @@
       <button type="submit" class="button">Set Busy Dates</button>
     </form>
     <form action="/available-dates" method="POST">
-      <label for="availableDates">Set Available Dates (comma separated):</label>
-      <input
-        type="text"
-        name="availableDates"
-        placeholder="YYYY-MM-DD, YYYY-MM-DD"
-      />
+      <h2>Set Available Dates (with Time):</h2>
+      <label for="availableStartDate">Available Start Date:</label>
+      <input type="date" name="availableStartDate" required />
+      <input type="time" name="availableStartTime" required />
+
+      <label for="availableEndDate">Available End Date:</label>
+      <input type="date" name="availableEndDate" required />
+      <input type="time" name="availableEndTime" required />
+
       <button type="submit" class="button">Set Available Dates</button>
     </form>
 
-    <a href="/provider/logoutPro" class="button">Logout</a>
+    <a href="logoutPro" class="button">Logout</a>
   </body>
 </html>

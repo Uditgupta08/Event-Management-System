@@ -18,7 +18,7 @@
         <span>No user information available</span><br />
         <% } %>
         <strong>Status:</strong> <%= request.status %><br />
-        <form action="/provider/requests/<%= request._id %>" method="POST">
+        <form action="/requests/<%= request._id %>?_method=PUT" method="POST">
           <select name="status" required>
             <option value="">Select Status</option>
             <option value="confirmed">Confirm</option>
@@ -31,6 +31,5 @@
       <li>No pending requests available.</li>
       <% } %>
     </ul>
-    <a href="/my-bookings">Back to My Bookings</a>
   </body>
 </html>

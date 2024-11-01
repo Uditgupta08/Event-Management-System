@@ -65,6 +65,7 @@ const bookService = async (req, res) => {
       eventDate: startEventDateObj,
       endDate: endEventDateObj,
       budget,
+      status: "pending",
     });
 
     console.log("New booking object:", newBooking);
@@ -78,29 +79,25 @@ const bookService = async (req, res) => {
 
 const getUserBookings = async (req, res) => {
   try {
-    if (!req.isAuthenticated) {
-      return res.redirect("/loginUser");
-    }
-
     const userId = req.user._id;
-    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    const now = new Date();
 
-    const recentBookings = await Booking.find({
+    const upcomingBookings = await Booking.find({
       userId: userId,
-      createdAt: { $gte: oneDayAgo },
+      eventDate: { $gte: now },
     })
       .populate("providerId")
       .exec();
 
     const previousBookings = await Booking.find({
       userId: userId,
-      createdAt: { $lt: oneDayAgo },
+      eventDate: { $lt: now },
     })
       .populate("providerId")
       .exec();
 
-    res.render("myBookings", {
-      recentBookings: recentBookings,
+    res.render("user/previousBookings", {
+      upcomingBookings: upcomingBookings,
       previousBookings: previousBookings,
     });
   } catch (error) {

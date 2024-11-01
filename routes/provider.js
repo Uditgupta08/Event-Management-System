@@ -13,7 +13,7 @@ const {
 const {
   getProviderRequests,
   updateRequestStatus,
-  getProviderPastBookings,
+  getProviderEvents,
 } = require("../controllers/Provider/bookingController");
 const {
   getEditProfile,
@@ -62,7 +62,7 @@ providerRouter.put("/requests/:bookingId", verifyToken, updateRequestStatus);
 providerRouter.get(
   "/past-bookings",
   verifyToken,
-  getProviderPastBookings,
+  getProviderEvents,
   (req, res) => {
     res.render("provider/pastBookings");
   }

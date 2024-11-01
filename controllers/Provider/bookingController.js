@@ -24,21 +24,27 @@ const updateRequestStatus = async (req, res) => {
     booking.status = req.body.status;
     await booking.save();
 
-    res
-      .status(200)
-      .json({ success: true, message: `Request ${req.body.status}.` });
+    res.render("/provider/pastBookings");
   } catch (error) {
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
 
-const getProviderPastBookings = async (req, res) => {
+const getProviderEvents = async (req, res) => {
   try {
+    const now = new Date();
+    const upcomingBookings = await Booking.find({
+      providerId: req.user._id,
+      status: "confirmed",
+      eventDate: { $gte: now },
+    }).populate("userId", "fullname email");
     const pastBookings = await Booking.find({
       providerId: req.user._id,
       status: "confirmed",
+      eventDate: { $lt: now },
     }).populate("userId", "fullname email");
-    res.render("provider/pastBookings", { pastBookings });
+
+    res.render("provider/events", { upcomingBookings, pastBookings });
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
   }
@@ -47,5 +53,5 @@ const getProviderPastBookings = async (req, res) => {
 module.exports = {
   getProviderRequests,
   updateRequestStatus,
-  getProviderPastBookings,
+  getProviderEvents,
 };
