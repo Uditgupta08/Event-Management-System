@@ -17,7 +17,6 @@ This is an Event Management System that allows users (organizers) to book variou
 - Express.js
 - MongoDB
 - EJS (Embedded JavaScript templating)
-- Cookie-parser and express-session for session management
 
 ## How to Run
 1. Clone the repository:
