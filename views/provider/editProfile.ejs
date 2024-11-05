@@ -107,6 +107,9 @@
         <option value="Ladakh" <% if (provider.state === 'Ladakh') { %> selected <% } %> >Ladakh</option>
       </select><br />
 
+      <label for="budget">Budget:</label>
+      <input type="text" name="budget" value="<%= provider.budget %>" /><br />
+
       <label for="profilePhoto">Profile Photo:</label>
       <input type="file" name="profilePhoto" accept="image/*" /><br />
 

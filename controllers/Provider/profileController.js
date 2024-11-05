@@ -10,14 +10,9 @@ const getEditProfile = async (req, res) => {
 };
 
 const updateProfile = async (req, res) => {
-  const { email, city, state, country } = req.body;
+  const { email, city, state, country, budget } = req.body;
 
-  const updatedData = {
-    email,
-    city,
-    state,
-    country,
-  };
+  const updatedData = { email, city, state, country, budget };
   if (req.files) {
     if (req.files.profilePhoto) {
       updatedData.profilePhoto = req.files.profilePhoto[0].path;
