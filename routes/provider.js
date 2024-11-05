@@ -64,7 +64,7 @@ providerRouter.get(
   verifyToken,
   getProviderEvents,
   (req, res) => {
-    res.render("provider/pastBookings");
+    res.render("provider/events");
   }
 );
 providerRouter.get("/edit", verifyToken, getEditProfile, (req, res) => {

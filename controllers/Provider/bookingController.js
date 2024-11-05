@@ -4,7 +4,7 @@ const getProviderRequests = async (req, res) => {
   try {
     const requests = await Booking.find({
       providerId: req.user._id,
-      status: "Pending",
+      status: "pending",
     }).populate("userId", "email fullname");
     console.log(requests);
     res.render("provider/requests", { requests });
@@ -24,7 +24,7 @@ const updateRequestStatus = async (req, res) => {
     booking.status = req.body.status;
     await booking.save();
 
-    res.render("/provider/pastBookings");
+    res.render("/provider/events");
   } catch (error) {
     res.status(500).json({ success: false, message: "Server Error" });
   }

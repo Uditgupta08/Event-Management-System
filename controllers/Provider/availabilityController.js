@@ -45,7 +45,7 @@ const setProviderBusyDates = async (req, res) => {
       busyDates: provider.manuallyBusyDates,
     });
   } catch (error) {
-    console.error("Error setting busy dates:", error); // Log error
+    console.error("Error setting busy dates:", error);
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
@@ -85,14 +85,10 @@ const setAvailableDates = async (req, res) => {
     }
 
     const provider = await Provider.findById(providerId).exec();
-
-    // Filter out busy dates that overlap with the new available dates
     provider.manuallyBusyDates = provider.manuallyBusyDates.filter(
       (busyDate) =>
         !(startDateTime < busyDate.end && endDateTime > busyDate.start)
     );
-
-    // Assuming you want to add the new available dates into the provider record
     provider.availableDates.push({ start: startDateTime, end: endDateTime });
 
     await provider.save();
