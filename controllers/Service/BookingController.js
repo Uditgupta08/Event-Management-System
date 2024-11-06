@@ -9,16 +9,16 @@ const bookService = async (req, res) => {
 
     const providerId = req.params.id;
     const userId = req.user._id;
-    const { startDateTime, endDateTime, budget } = req.body;
+    const { startDateTime, endDateTime } = req.body;
 
     console.log("User ID:", userId);
     console.log("Provider ID:", providerId);
     console.log("Request Body:", req.body);
 
-    if (!startDateTime || !endDateTime || !budget) {
+    if (!startDateTime || !endDateTime ) {
       return res
         .status(400)
-        .json({ message: "Event date and time and budget are required." });
+        .json({ message: "Event date and time is required." });
     }
 
     const startEventDateObj = new Date(startDateTime);
@@ -64,7 +64,6 @@ const bookService = async (req, res) => {
       serviceType,
       eventDate: startEventDateObj,
       endDate: endEventDateObj,
-      budget,
       status: "pending",
     });
 
