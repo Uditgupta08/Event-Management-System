@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/stylesheets/register.css" />
+    <link rel="stylesheet" href="/stylesheets/registerPro.css" />
     <title>Provider Registration</title>
   </head>
   <body>
@@ -134,5 +134,221 @@
         </form>
       </div>
     </div>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User's Registration</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/stylesheets/registerPro.css" />
+  </head>
+  <body>
+    <div class="form-wrapper">
+      <div class="cont">
+        <div class="nav">Event Ease</div>
+        <div class="container">
+          <div class="title">Sign Up</div>
+          <form
+            action="/registerPro"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="user-details">
+              <div class="input-box">
+                <span class="details">Firm Name</span>
+                <input type="text" name="" id="" placeholder="Enter" required />
+              </div>
+              <div class="input-box">
+                <span class="details">Email</span>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  name="email"
+                  required
+                />
+              </div>
+              <div class="input-box" id="form-group">
+                <span class="details">State/Union Territory</span>
+                <select id="state" name="state" required>
+                  <option value="" disabled selected>
+                    Select your state/UT
+                  </option>
+                  <option value="andhra-pradesh">Andhra Pradesh</option>
+                  <option value="arunachal-pradesh">Arunachal Pradesh</option>
+                  <option value="assam">Assam</option>
+                  <option value="bihar">Bihar</option>
+                  <option value="chhattisgarh">Chhattisgarh</option>
+                  <option value="goa">Goa</option>
+                  <option value="gujarat">Gujarat</option>
+                  <option value="haryana">Haryana</option>
+                  <option value="himachal-pradesh">Himachal Pradesh</option>
+                  <option value="jharkhand">Jharkhand</option>
+                  <option value="karnataka">Karnataka</option>
+                  <option value="kerala">Kerala</option>
+                  <option value="madhya-pradesh">Madhya Pradesh</option>
+                  <option value="maharashtra">Maharashtra</option>
+                  <option value="manipur">Manipur</option>
+                  <option value="meghalaya">Meghalaya</option>
+                  <option value="mizoram">Mizoram</option>
+                  <option value="nagaland">Nagaland</option>
+                  <option value="odisha">Odisha</option>
+                  <option value="punjab">Punjab</option>
+                  <option value="rajasthan">Rajasthan</option>
+                  <option value="sikkim">Sikkim</option>
+                  <option value="tamil-nadu">Tamil Nadu</option>
+                  <option value="telangana">Telangana</option>
+                  <option value="tripura">Tripura</option>
+                  <option value="uttar-pradesh">Uttar Pradesh</option>
+                  <option value="uttarakhand">Uttarakhand</option>
+                  <option value="west-bengal">West Bengal</option>
+                  <option value="andaman-nicobar">
+                    Andaman and Nicobar Islands
+                  </option>
+                  <option value="chandigarh">Chandigarh</option>
+                  <option value="dadra-nagar-haveli">
+                    Dadra and Nagar Haveli and Daman and Diu
+                  </option>
+                  <option value="delhi">Delhi</option>
+                  <option value="jammu-kashmir">Jammu and Kashmir</option>
+                  <option value="ladakh">Ladakh</option>
+                  <option value="lakshadweep">Lakshadweep</option>
+                  <option value="puducherry">Puducherry</option>
+                </select>
+              </div>
+              <div class="input-box">
+                <span class="details">City</span>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Please Enter the city"
+                  required
+                />
+              </div>
+              <div class="input-box">
+                <span class="details">Phone Number</span>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Enter your number"
+                  required
+                />
+              </div>
+              <div class="input-box">
+                <span class="details">Service</span>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Please enter you service"
+                  required
+                />
+              </div>
+              <div class="input-box">
+                <span class="details">Website</span>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Provide the website link"
+                />
+              </div>
+              <div class="input-box">
+                <span class="details">Instagram Page (if available)</span>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Provide with the link"
+                />
+              </div>
+              <div class="input-box">
+                <span class="details">Enter your Service Price</span>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Enter the price"
+                />
+              </div>
+              <div class="input-box">
+                <span class="details">Description:</span>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="Type your message here..."
+                ></textarea>
+              </div>
+
+              <div class="input-box">
+                <label for="profile-photo" class="required"
+                  >Profile Photo:</label
+                >
+                <input
+                  type="file"
+                  id="profile-photo"
+                  name="profile-photo"
+                  required
+                />
+              </div>
+
+              <div class="input-box">
+                <label for="additional-photos">Additional Photos:</label>
+                <input
+                  type="file"
+                  id="additional-photos"
+                  name="additional-photos"
+                  multiple
+                />
+              </div>
+              <div class="input-box">
+                <span class="details">Password</span>
+                <input
+                  type="password"
+                  name=""
+                  id=""
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+              <div class="input-box">
+                <span class="details">Confirm Password</span>
+                <input
+                  type="password"
+                  name=""
+                  id=""
+                  placeholder="Confirm your password"
+                  required
+                />
+              </div>
+            </div>
+            <div class="button">
+              <input type="submit" value="Register" />
+              <div class="signup">
+                <a class="sign_up" href="/loginPro">Already have an account?</a>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="image-section">
+          <img
+            src="/images/anthony-delanoix-hzgs56Ze49s-unsplash.jpg"
+            alt="Side Image"
+          />
+          <div class="overlay-text">
+            <h2>Capturing Moments,<br />Creating Memories</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./script.js"></script>
   </body>
 </html>

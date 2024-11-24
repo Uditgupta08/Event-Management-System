@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -124,5 +124,217 @@
       </div>
     </div>
     <script src="/javascripts/index.js"></script>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/home.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.8/dist/lottie-player.js"></script>
+    <title>Homepage</title>
+  </head>
+  <body data-user-logged-in="<%= user ? 'true' : 'false' %>">
+    <nav class="navbar">
+      <a href="/" class="navbar-brand">EventEase</a>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <ul class="navbar-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#shop" class="active">Services</a></li>
+        <% if (user) { %>
+        <li><a href="/myBookings">My Bookings</a></li>
+        <div class="dropdown">
+          <li class="dropdown-content">
+            <li><a href="/logout">Logout</a></li>
+          </div>
+        </div>
+        <% } else { %>
+        <li><a href="registerUser">Register as User</a></li>
+        <li><a href="registerPro">Register as Provider</a></li>
+        <li><a href="loginUser">Login for User</a></li>
+        <li><a href="loginPro">Login for Provider</a></li>
+        <% } %>
+      </ul>
+    </nav>
+    <section id="home">
+      <div class="home_page">
+        <div class="home_img">
+          <div class="slideshow">
+            <img
+              src="/images/redd-francisco-qMFSP1xYVTQ-unsplash.jpg"
+              class="slide active"
+              alt="img"
+            />
+            <img
+              src="https://images.pexels.com/photos/29410666/pexels-photo-29410666/free-photo-of-elegant-banquet-table-setting-at-gala-event.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              class="slide"
+              alt="img"
+            />
+            <img
+              src="https://images.pexels.com/photos/3866658/pexels-photo-3866658.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              class="slide"
+              alt="img"
+            />
+          </div>
+        </div>
+        <div class="home_txt">
+          <p class="collectio">Your One-Stop Destination for Event Services</p>
+          <h2>EVENTEASE</h2>
+          <div class="home_label">
+            <p>
+              Planning an event has never been easier! At Event Ease, we connect
+              you with the best services tailored to your needs, from venues and
+              catering to entertainment and decor. Whether it's a grand
+              celebration or an intimate gathering, find everything you need in
+              one place.
+            </p>
+          </div>
+          <div class="social_icons">
+            <a href="#"><i class="bx bxl-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#"><i class="bx bxl-whatsapp"></i></a>
+            <a href="#"><i class="bx bxl-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="collection">
+      <div class="collections">
+        <% const services = [
+          { name: "Catering", url: "/services/caterer", img: "https://images.pexels.com/photos/6270/woman-flowers-holidays-girl-6270.jpg" },
+          { name: "Decorations", url: "/services/decor", img: "https://images.pexels.com/photos/750843/pexels-photo-750843.jpeg" },
+          { name: "Venues", url: "/services/venue", img: "https://images.unsplash.com/photo-1524824267900-2fa9cbf7a506?q=80&w=2070" },
+          { name: "DJ & Bands", url: "/services/djandbands", img: "https://images.pexels.com/photos/1540372/pexels-photo-1540372.jpeg" },
+          { name: "Event Planners", url: "/services/eventmanager", img: "https://tripleseat.com/wp-content/uploads/2022/08/event-coordinator.jpg" },
+          { name: "Others", url: "/services/other", img: "https://media.istockphoto.com/id/606640632/photo/photographer-in-action.jpg?s=612x612&w=0&k=20&c=uw2_TuUm7_W7CrAvymIXgTrFGnFCiFcVSKtew2Q3YLI=" }
+        ]; %>
+        <% services.forEach((service) => { %>
+          <div class="content">
+            <img src="<%= service.img %>" alt="<%= service.name %>" />
+            <div class="img-content">
+              <p><%= service.name %></p>
+              <button>
+                <a href="<%= service.url %>">Check Out!</a>
+              </button>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </section>
+    <section id="contact">
+      <div class="contact container">
+        <form action="https://formspree.io/f/xzbowpjq" method="POST">
+          <div class="form">
+            <div class="form-txt">
+              <h4>We’d Love to Hear From You!</h4>
+              <h1>Contact Us</h1>
+              <span
+                >Planning an event or have questions? We're here to help!</span
+              >
+              <lottie-player
+                src="https://lottie.host/6011eae3-c77d-4b36-b69f-3df11b8d0e9d/PZ41zRAJks.json"
+                background="##FFFFFF"
+                speed="1"
+                style="margin-left: 50px; width: 300px; height: 300px"
+                loop
+                autoplay
+                direction="1"
+                mode="normal"
+              ></lottie-player>
+            </div>
+            <div class="form-details">
+              <input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Name"
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Email"
+                required
+              />
+              <textarea
+                name="message"
+                id="message"
+                cols="52"
+                rows="7"
+                placeholder="Message"
+                required
+              ></textarea>
+              <button>SEND MESSAGE</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+    <footer>
+      <div class="footer-container container">
+        <div class="content_1">
+          <h2 style="color: azure">EventEase</h2>
+        </div>
+        <div class="content_2">
+          <h4>Services</h4>
+          <a href="#sellers">Catering</a>
+          <a href="#sellers">Venues</a>
+          <a href="#sellers">DJ & Bands</a>
+          <a href="#sellers">Event Planners</a>
+        </div>
+        <div class="content_3" style="margin: 4% 0">
+          <h4>About Us</h4>
+          <p style="color: rgb(154, 151, 151); width: 50%">
+            At Event Ease, we are passionate about simplifying event planning.
+          </p>
+        </div>
+        <div class="social_icons">
+          <h4>Follow Us:</h4>
+          <a href="#"><i class="bx bxl-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#"><i class="bx bxl-whatsapp"></i></a>
+          <a href="#"><i class="bx bxl-instagram"></i></a>
+        </div>
+      </div>
+      <div class="f-design">
+        <div class="f-design-txt container">
+          <p>© 2024 | EventEase | All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+    <dotlottie-player
+      src="https://lottie.host/c404786e-2d84-4239-a092-5fa55366d5a7/DRPRrsgJH4.json"
+      background="transparent"
+      speed="1"
+      style="width: 300px; height: 300px"
+      direction="1"
+      playMode="normal"
+      loop
+      controls
+      autoplay
+    ></dotlottie-player>
+    <script src="/javascripts/homepage.js"></script>
   </body>
 </html>

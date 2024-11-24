@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -195,5 +195,181 @@
     </div>
     <a href="/">Back</a>
     </div>
+  </body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/browse.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <title><%= serviceType %> Services</title>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <a href="#" class="navbar-brand">EventEase</a>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <ul class="navbar-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#shop" class="active">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li>
+          <a href="#contact"><i class="fa-solid fa-user"></i> My Profile</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home">
+      <div class="home_page">
+        <div class="home_img">
+          <img
+            src="/images/hamza-nouasria--3pvRUfQc-c-unsplash.jpg"
+            alt="Catering Services"
+          />
+        </div>
+        <div class="home_txt">
+          <p class="collectio">Delicious Catering for Every Palate</p>
+          <h2 style="color: white"><%= serviceType %> Services</h2>
+          <div class="home_label">
+            <p>
+              From gourmet dining to casual bites, find catering services that
+              match your event's style and your guests' preferences.
+            </p>
+          </div>
+          <button class="filter-trigger">
+            <i class="bx bx-filter"></i>Filter
+          </button>
+        </div>
+      </div>
+    </section>
+<div class="popup-overlay" id="filterPopup">
+  <div class="popup-content">
+    <span class="close-popup">&times;</span>
+    <h2 style="font-size: 30px">Filter Services</h2>
+    <form id="filterForm" method="GET" action="">
+      <!-- Firm Name -->
+      <label for="firmname">Search by firm name:</label>
+      <input
+        type="text"
+        id="firmname"
+        name="firmname"
+        placeholder="Firm Name"
+        value="<%= firmname %>"
+      />
+
+      <!-- State Selection -->
+      <div class="filter-section">
+        <label for="state">Enter State:</label>
+<input
+  type="text"
+  id="state"
+  name="state"
+  placeholder="Enter State"
+  value="<%= state || '' %>"
+/>
+      </div>
+      <!-- Sort Options -->
+      <label for="sort">Sort by:</label>
+      <select name="sort" id="sort">
+        <option value="">Sort by</option>
+        <option value="rating" <%= sort === 'rating' ? 'selected' : '' %>>Rating</option>
+        <option value="budget" <%= sort === 'budget' ? 'selected' : '' %>>Budget</option>
+      </select>
+
+      <!-- Apply and Reset Buttons -->
+      <div class="filter-buttons">
+        <button type="button" class="filter-button reset-filters">
+          Reset
+        </button>
+        <button type="submit" class="filter-button apply-filters">
+          Apply Filters
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+    <div class="container">
+      <div class="active-filters" id="activeFilters">
+        <div class="active-filters-content"></div>
+      </div>
+      <div class="section-grid">
+        <% services.forEach((service) => { %>
+          <div class="prod-grid">
+            <% if (service.profilePhoto) { %>
+              <img
+                src="/<%= service.profilePhoto %>"
+                alt="<%= serviceType %> profilePhoto"
+              />
+            <% } else { %>
+              <p>No photo available</p>
+            <% } %>
+            <h3><%= service.name %></h3>
+            <p><%= service.description %></p>
+            <a
+              href="/services/<%= serviceType.toLowerCase() %>/<%= service._id %>"
+              class="checkout-btn">
+              Check Out
+            </a>
+          </div>
+        </div>
+          <% }) %>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-container container">
+        <div class="content_1">
+          <h2 style="color: azure">EventEase</h2>
+        </div>
+        <div class="content_2">
+          <h4>Services</h4>
+          <a href="#catering">Catering</a>
+          <a href="#venues">Venues</a>
+          <a href="#dj-bands">DJ & Bands</a>
+          <a href="#event-planners">Event Planners</a>
+        </div>
+        <div class="content_3" style="margin: 4% 0">
+          <h4>About Us</h4>
+          <p style="color: rgb(154, 151, 151); width: 50%; text-align: left">
+            At EventEase, we are passionate about simplifying event planning.
+            Whether you're hosting a grand wedding, a corporate gala, or a small
+            gathering, we connect you with the best services tailored to your
+            needs. Our mission is to provide a seamless, stress-free experience,
+            helping you create unforgettable memories. Explore. Plan. Celebrate.
+            Let’s make your dream event a reality!
+          </p>
+        </div>
+        <div class="social_icons">
+          <h4>Follow Us:</h4>
+          <a href="#"><i class="bx bxl-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#"><i class="bx bxl-whatsapp"></i></a>
+          <a href="#"><i class="bx bxl-instagram"></i></a>
+        </div>
+      </div>
+      <div class="f-design">
+        <div class="f-design-txt container">
+          <p>© 2024 | EventEase | All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+    <script src="/javascripts/browse.js"></script>
   </body>
 </html>

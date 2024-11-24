@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -31,5 +31,68 @@
         <a href="/">Back</a>
       </form>
     </div>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User's Registration</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/stylesheets/login.css" />
+  </head>
+  <body>
+    <div class="form-wrapper">
+      <div class="cont">
+        <div class="nav">Event Ease</div>
+        <div class="container">
+          <div class="title">Sign Up</div>
+          <form action="loginPro" method="post">
+            <div class="user-details">
+              <div class="input-box">
+                <span class="details">Email</span>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Enter your Email"
+                  required
+                />
+              </div>
+              <div class="input-box">
+                <span class="details">Password</span>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+            </div>
+            <div class="button">
+              <input type="submit" value="Login" />
+              <div class="signup">
+                <a class="sign_up" href="/registerPro"
+                  >Don't have an account?</a
+                >
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="image-section">
+          <img src="/images/bg-form.jpg" alt="Side Image" />
+          <div class="overlay-text">
+            <h2>Capturing Moments,<br />Creating Memories</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/javascripts/script.js"></script>
   </body>
 </html>

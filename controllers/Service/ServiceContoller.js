@@ -3,7 +3,7 @@ const Provider = require("../../models/provider");
 const getServicesByType = async (req, res) => {
   try {
     if (!req.isAuthenticated) {
-      return res.redirect("user/login");
+      return res.status(401).send("Please log in to access this service.");
     }
 
     const serviceType = req.params.type.toLowerCase();
@@ -73,6 +73,7 @@ const getServicesByType = async (req, res) => {
       startTime,
       endDate,
       endTime,
+      sort,
       unavailableServices,
     });
   } catch (error) {
