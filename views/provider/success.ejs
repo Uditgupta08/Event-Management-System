@@ -96,7 +96,7 @@
       <h2>Welcome aboard, <%= provider.email %>!</h2>
       <% if (provider.profilePhoto) { %>
       <img
-        src="<%= provider.profilePhoto %>"
+        src="/uploads/<%= provider.profilePhoto %>"
         alt="Profile Photo"
         class="profile-photo"
       />
@@ -112,12 +112,10 @@
     <div class="photos">
       <% if (provider.photos && provider.photos.length > 0) { %> <%
       provider.photos.forEach(photo => { %>
-      <img src="<%= photo %>" alt="Provider Photo" />
+      <img src="/uploads/<%= photo %>" alt="Provider Photo" />
       <% }); %> <% } else { %>
       <p>No photos uploaded.</p>
       <% } %>
     </div>
-
-    <a href="/" class="button">Back to Home</a>
   </body>
 </html>

@@ -4,7 +4,7 @@ const { verifyToken } = require("../middlewares/auth");
 const {
   bookService,
   getUserBookings,
-  getProviderBookings,
+  getProviderEvents,
 } = require("../controllers/Service/BookingController");
 const {
   getServicesByType,
@@ -18,6 +18,13 @@ serviceRoutes.post("/bookService/:id", verifyToken, bookService);
 
 serviceRoutes.get("/myBookings", verifyToken, getUserBookings);
 
-serviceRoutes.get("/providerBookings", verifyToken, getProviderBookings);
+serviceRoutes.get(
+  "/past-bookings",
+  verifyToken,
+  getProviderEvents,
+  (req, res) => {
+    res.render("provider/events");
+  }
+);
 
 module.exports = serviceRoutes;

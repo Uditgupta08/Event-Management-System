@@ -162,11 +162,17 @@
           >
             <div class="user-details">
               <div class="input-box">
-                <span class="details">Firm Name</span>
-                <input type="text" name="" id="" placeholder="Enter" required />
+                <span class="details">Firm Name*</span>
+                <input
+                  type="text"
+                  name="firmname"
+                  id="firmname"
+                  placeholder="Enter"
+                  required
+                />
               </div>
               <div class="input-box">
-                <span class="details">Email</span>
+                <span class="details">Email*</span>
                 <input
                   type="email"
                   placeholder="Enter your email"
@@ -175,10 +181,10 @@
                 />
               </div>
               <div class="input-box" id="form-group">
-                <span class="details">State/Union Territory</span>
+                <span class="details">State/Union Territory*</span>
                 <select id="state" name="state" required>
                   <option value="" disabled selected>
-                    Select your state/UT
+                    Select your state/UT*
                   </option>
                   <option value="andhra-pradesh">Andhra Pradesh</option>
                   <option value="arunachal-pradesh">Arunachal Pradesh</option>
@@ -223,41 +229,42 @@
                 </select>
               </div>
               <div class="input-box">
-                <span class="details">City</span>
+                <span class="details">City*</span>
                 <input
                   type="text"
-                  name=""
-                  id=""
+                  name="city"
+                  id="city"
                   placeholder="Please Enter the city"
                   required
                 />
               </div>
               <div class="input-box">
-                <span class="details">Phone Number</span>
+                <span class="details">Phone Number*</span>
                 <input
-                  type="text"
-                  name=""
-                  id=""
-                  placeholder="Enter your number"
+                  type="tel"
+                  name="contact"
+                  id="contact"
+                  placeholder="Enter your contact number"
                   required
                 />
               </div>
               <div class="input-box">
-                <span class="details">Service</span>
-                <input
-                  type="text"
-                  name=""
-                  id=""
-                  placeholder="Please enter you service"
-                  required
-                />
+                <span class="details">Service*</span>
+                <select id="service" name="service" required>
+                  <option value="caterer">Caterer</option>
+                  <option value="decor">Decorator</option>
+                  <option value="djandbands">DJ and Bands</option>
+                  <option value="venue">Venue</option>
+                  <option value="eventmanager">Event Manager</option>
+                  <option value="other">Other</option></select
+                ><br /><br />
               </div>
               <div class="input-box">
                 <span class="details">Website</span>
                 <input
                   type="text"
-                  name=""
-                  id=""
+                  name="website"
+                  id="website"
                   placeholder="Provide the website link"
                 />
               </div>
@@ -265,67 +272,52 @@
                 <span class="details">Instagram Page (if available)</span>
                 <input
                   type="text"
-                  name=""
-                  id=""
-                  placeholder="Provide with the link"
+                  name="social"
+                  id="social"
+                  placeholder="Provide the Profile link"
                 />
               </div>
               <div class="input-box">
-                <span class="details">Enter your Service Price</span>
+                <span class="details">Enter your Service Price*</span>
                 <input
                   type="text"
-                  name=""
-                  id=""
+                  name="budget"
+                  id="budget"
                   placeholder="Enter the price"
                 />
               </div>
               <div class="input-box">
-                <span class="details">Description:</span>
+                <span class="details">Description*:</span>
                 <textarea
-                  id="message"
-                  name="message"
-                  placeholder="Type your message here..."
+                  id="description"
+                  name="description"
+                  placeholder="Type your Description here..."
                 ></textarea>
               </div>
 
               <div class="input-box">
                 <label for="profile-photo" class="required"
-                  >Profile Photo:</label
+                  >Profile Photo*:</label
                 >
                 <input
                   type="file"
-                  id="profile-photo"
-                  name="profile-photo"
+                  id="profilePhoto"
+                  name="profilePhoto"
                   required
                 />
               </div>
 
               <div class="input-box">
                 <label for="additional-photos">Additional Photos:</label>
-                <input
-                  type="file"
-                  id="additional-photos"
-                  name="additional-photos"
-                  multiple
-                />
+                <input type="file" id="photos" name="photos" multiple />
               </div>
               <div class="input-box">
                 <span class="details">Password</span>
                 <input
                   type="password"
-                  name=""
-                  id=""
+                  name="password"
+                  id="password"
                   placeholder="Enter your password"
-                  required
-                />
-              </div>
-              <div class="input-box">
-                <span class="details">Confirm Password</span>
-                <input
-                  type="password"
-                  name=""
-                  id=""
-                  placeholder="Confirm your password"
                   required
                 />
               </div>
@@ -349,6 +341,6 @@
         </div>
       </div>
     </div>
-    <script src="./script.js"></script>
+    <!-- <script src="./script.js"></script> -->
   </body>
 </html>

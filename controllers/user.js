@@ -5,7 +5,11 @@ const registerUser = async (req, res) => {
   try {
     const newUser = new User(req.body);
     await newUser.save();
-    res.status(200).render("user/success", { user: newUser });
+    const accessToken = jwt.sign({ _id: newUser._id }, process.env.SECRET_KEY, {
+      expiresIn: "1d",
+    });
+    res.cookie("accessToken", accessToken, { httpOnly: true, sameSite: "lax" });
+    res.status(200).render("index", { user: newUser });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -32,7 +36,6 @@ const loginUser = async (req, res) => {
     res.status(500).json({ message: "SERVER ERROR" });
   }
 };
-
 const logoutUser = (req, res) => {
   res.clearCookie("accessToken");
   res.redirect("/");

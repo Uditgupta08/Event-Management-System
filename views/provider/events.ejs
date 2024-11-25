@@ -5,9 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Provider Events</title>
   </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 20px;
+      color: #4caf50;
+    }
+
+    .booking {
+      background: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      margin: 20px auto;
+      max-width: 500px;
+      transition: transform 0.3s;
+    }
+
+    .booking:hover {
+      transform: scale(1.02);
+    }
+
+    .booking p {
+      margin: 10px 0;
+    }
+
+    .booking strong {
+      color: #555;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    .no-events {
+      text-align: center;
+      font-size: 18px;
+      margin: 20px 0;
+      color: #888;
+    }
+
+    /* Headings */
+    h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    /* Links */
+    a {
+      color: #4caf50;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .booking {
+        padding: 10px;
+        font-size: 14px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
   <body>
     <h2>Upcoming Confirmed Events</h2>
-    <% if (upcomingBookings.length > 0) { %> <%
+    <% if (upcomingBookings && upcomingBookings.length > 0) { %> <%
     upcomingBookings.forEach(function(booking) { %>
     <div class="booking">
       <p>
@@ -16,11 +94,11 @@
       </p>
       <p>
         <strong>Event Start Date:</strong>
-        <%= booking.eventDate ? booking.eventDate.toLocaleString() : 'N/A' %>
+        <%= new Date(booking.eventDate).toLocaleString() %>
       </p>
       <p>
         <strong>Event End Date:</strong>
-        <%= booking.endDate ? booking.endDate.toLocaleString() : 'N/A' %>
+        <%= new Date(booking.endDate).toLocaleString() %>
       </p>
     </div>
     <% }); %> <% } else { %>
@@ -28,20 +106,21 @@
     <% } %>
 
     <h2>Past Confirmed Events</h2>
-    <% if (pastBookings.length > 0) { %> <%
+    <% if (pastBookings && pastBookings.length > 0) { %> <%
     pastBookings.forEach(function(booking) { %>
     <div class="booking">
       <p>
-        <strong>Booked By:</strong> <%= booking.userId.fullname %> (<%=
-        booking.userId.email %>)
+        <strong>Booked By:</strong> <%= booking.userId ? booking.userId.fullname
+        : 'Unknown' %> (<%= booking.userId ? booking.userId.email : 'Unknown'
+        %>)
       </p>
       <p>
         <strong>Event Start Date:</strong>
-        <%= booking.eventDate ? booking.eventDate.toLocaleString() : 'N/A' %>
+        <%= new Date(booking.eventDate).toLocaleString() %>
       </p>
       <p>
         <strong>Event End Date:</strong>
-        <%= booking.endDate ? booking.endDate.toLocaleString() : 'N/A' %>
+        <%= new Date(booking.endDate).toLocaleString() %>
       </p>
     </div>
     <% }); %> <% } else { %>

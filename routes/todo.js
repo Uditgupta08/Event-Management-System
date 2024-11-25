@@ -1,8 +1,8 @@
-const express = require("express");
-const router = express.Router();
+// const express = require("express");
+// const router = express.Router();
 
-router.get("/todo", (req, res) => {
-  res.render("todo");
-});
+// router.get("/todo", (req, res) => {
+//   res.render("todo");
+// });
 
-module.exports = router;
+// module.exports = router;

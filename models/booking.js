@@ -19,10 +19,6 @@ const bookingSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  budget: {
-    type: Number,
-    required: true,
-  },
   endDate: {
     type: Date,
     required: true,

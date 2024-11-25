@@ -15,7 +15,7 @@ const bookService = async (req, res) => {
     console.log("Provider ID:", providerId);
     console.log("Request Body:", req.body);
 
-    if (!startDateTime || !endDateTime ) {
+    if (!startDateTime || !endDateTime) {
       return res
         .status(400)
         .json({ message: "Event date and time is required." });
@@ -95,6 +95,9 @@ const getUserBookings = async (req, res) => {
       .populate("providerId")
       .exec();
 
+    console.log("Upcoming Bookings: ", upcomingBookings);
+    console.log("Previous Bookings: ", previousBookings);
+
     res.render("user/previousBookings", {
       upcomingBookings: upcomingBookings,
       previousBookings: previousBookings,
@@ -105,41 +108,35 @@ const getUserBookings = async (req, res) => {
   }
 };
 
-const getProviderBookings = async (req, res) => {
+const getProviderEvents = async (req, res) => {
   try {
-    if (!req.isAuthenticated || !req.user.isProvider) {
-      return res.redirect("/loginProvider");
-    }
-
-    const providerId = req.user._id;
-    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
-
-    const recentBookings = await Booking.find({
-      providerId: providerId,
-      createdAt: { $gte: oneDayAgo },
+    const now = new Date();
+    const upcomingBookings = await Booking.find({
+      providerId: req.user._id,
+      status: "confirmed",
+      eventDate: { $gte: now },
     })
-      .populate("userId")
+      .populate("userId", "fullname email")
+      .exec();
+    const pastBookings = await Booking.find({
+      providerId: req.user._id,
+      status: "confirmed",
+      eventDate: { $lt: now },
+    })
+      .populate("userId", "fullname email")
       .exec();
 
-    const previousBookings = await Booking.find({
-      providerId: providerId,
-      createdAt: { $lt: oneDayAgo },
-    })
-      .populate("userId")
-      .exec();
+    console.log("Upcoming Bookings:", upcomingBookings);
+    console.log("Past Bookings:", pastBookings);
 
-    res.render("providerBookings", {
-      recentBookings: recentBookings,
-      previousBookings: previousBookings,
-    });
+    res.render("provider/events", { upcomingBookings, pastBookings });
   } catch (error) {
-    console.error("Error fetching provider bookings:", error);
-    res.status(500).send("Server Error");
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
 module.exports = {
   bookService,
   getUserBookings,
-  getProviderBookings,
+  getProviderEvents,
 };

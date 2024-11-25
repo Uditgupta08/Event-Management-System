@@ -111,13 +111,9 @@
       <input type="text" name="budget" value="<%= provider.budget %>" /><br />
 
       <label for="profilePhoto">Profile Photo:</label>
-      <input type="file" name="profilePhoto" accept="image/*" /><br />
+      <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*" /><br />
 
       <button type="submit">Update Profile</button>
     </form>
-
-    <div class="manage-photos">
-      <button onclick="location.href='/manage-photos'">Manage Photos</button>
-    </div>
   </body>
 </html>
