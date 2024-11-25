@@ -12,32 +12,32 @@ const registerProvider = async (req, res) => {
     }
 
     const newProvider = new Provider(req.body);
-    // if (req.files) {
-    //   if (req.files.profilePhoto) {
-    //     newProvider.profilePhoto = req.files.profilePhoto[0].path;
-    //   }
-    //   if (req.files.photos) {
-    //     newProvider.photos = req.files.photos.map((file) => file.path);
-    //   }
-    // }
-    const uploadDir = path.join(__dirname, "../uploads");
     if (req.files) {
       if (req.files.profilePhoto) {
-        newProvider.profilePhoto = path
-          .relative(
-            path.join(__dirname, "../uploads"),
-            req.files.profilePhoto[0].path
-          )
-          .replace(/\\/g, "/");
+        newProvider.profilePhoto = req.files.profilePhoto[0].path;
       }
       if (req.files.photos) {
-        newProvider.photos = req.files.photos.map((file) =>
-          path
-            .relative(path.join(__dirname, "../uploads"), file.path)
-            .replace(/\\/g, "/")
-        );
+        newProvider.photos = req.files.photos.map((file) => file.path);
       }
     }
+    // const uploadDir = path.join(__dirname, "../uploads");
+    // if (req.files) {
+    //   if (req.files.profilePhoto) {
+    //     newProvider.profilePhoto = path
+    //       .relative(
+    //         path.join(__dirname, "../uploads"),
+    //         req.files.profilePhoto[0].path
+    //       )
+    //       .replace(/\\/g, "/");
+    //   }
+    //   if (req.files.photos) {
+    //     newProvider.photos = req.files.photos.map((file) =>
+    //       path
+    //         .relative(path.join(__dirname, "../uploads"), file.path)
+    //         .replace(/\\/g, "/")
+    //     );
+    //   }
+    // }
 
     await newProvider.save();
     const token = jwt.sign(

@@ -19,7 +19,8 @@ const updateProfile = async (req, res) => {
 
   try {
     if (req.files && req.files.profilePhoto) {
-      updatedData.profilePhoto = `../uploads/${req.files.profilePhoto[0].filename}`;
+      // updatedData.profilePhoto = `../uploads/${req.files.profilePhoto[0].filename}`;
+      updatedData.profilePhoto = req.files.profilePhoto[0].path;
     }
 
     const updatedProvider = await Provider.findByIdAndUpdate(
