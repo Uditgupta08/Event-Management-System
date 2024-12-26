@@ -1,0 +1,33 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+  margin: 0;
+  padding: 20px;
+}
+h1 {
+  color: #333;
+}
+form {
+  margin-bottom: 20px;
+}
+.dates-container {
+  margin: 20px 0;
+}
+.busy-date {
+  display: inline-block;
+  margin: 5px;
+  padding: 5px 10px;
+  background-color: #ffeb3b;
+  border-radius: 5px;
+}
+.button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: #388e3c;
+}

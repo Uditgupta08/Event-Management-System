@@ -1,198 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/stylesheets/browse.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <title><%= serviceType %> Services</title>
-  </head>
-  <body>
-    <nav class="navbar">
-      <a href="#" class="navbar-brand">EventEase</a>
-      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-      <ul class="navbar-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/myBookings">Previous bookings</a></li>
-        <li><a href="/logout">Logout</a></li>
-      </ul>
-    </nav>
-
-    <section id="home">
-      <div class="home_page">
-        <div class="home_img">
-          <img
-            src="/images/hamza-nouasria--3pvRUfQc-c-unsplash.jpg"
-            alt="Catering Services"
-          />
-        </div>
-        <div class="home_txt">
-          <p class="collectio">Delicious Catering for Every Palate</p>
-          <h2 style="color: white"><%= serviceType %> Services</h2>
-          <div class="home_label">
-            <p>
-              From gourmet dining to casual bites, find catering services that
-              match your event's style and your guests' preferences.
-            </p>
-          </div>
-          <button class="filter-trigger">
-            <i class="bx bx-filter"></i>Filter
-          </button>
-        </div>
-      </div>
-    </section>
-<div class="popup-overlay" id="filterPopup">
-  <div class="popup-content">
-    <span class="close-popup">&times;</span>
-    <h2 style="font-size: 30px">Filter Services</h2>
-    <form id="filterForm" method="GET" action="">
-      <label for="firmname">Search by firm name:</label>
-      <input
-        type="text"
-        id="firmname"
-        name="firmname"
-        placeholder="Firm Name"
-        value="<%= firmname %>"
-      />
-
-      <div class="filter-section">
-        <label for="state">Select State:</label>
-        <select id="state" name="state">
-          <option value="">-- Select State --</option>
-          <option value="Andhra Pradesh" <%= state === 'Andhra Pradesh' ? 'selected' : '' %>>Andhra Pradesh</option>
-          <option value="Arunachal Pradesh" <%= state === 'Arunachal Pradesh' ? 'selected' : '' %>>Arunachal Pradesh</option>
-          <option value="Assam" <%= state === 'Assam' ? 'selected' : '' %>>Assam</option>
-          <option value="Bihar" <%= state === 'Bihar' ? 'selected' : '' %>>Bihar</option>
-          <option value="Chhattisgarh" <%= state === 'Chhattisgarh' ? 'selected' : '' %>>Chhattisgarh</option>
-          <option value="Goa" <%= state === 'Goa' ? 'selected' : '' %>>Goa</option>
-          <option value="Gujarat" <%= state === 'Gujarat' ? 'selected' : '' %>>Gujarat</option>
-          <option value="Haryana" <%= state === 'Haryana' ? 'selected' : '' %>>Haryana</option>
-          <option value="Himachal Pradesh" <%= state === 'Himachal Pradesh' ? 'selected' : '' %>>Himachal Pradesh</option>
-          <option value="Jharkhand" <%= state === 'Jharkhand' ? 'selected' : '' %>>Jharkhand</option>
-          <option value="Karnataka" <%= state === 'Karnataka' ? 'selected' : '' %>>Karnataka</option>
-          <option value="Kerala" <%= state === 'Kerala' ? 'selected' : '' %>>Kerala</option>
-          <option value="Madhya Pradesh" <%= state === 'Madhya Pradesh' ? 'selected' : '' %>>Madhya Pradesh</option>
-          <option value="Maharashtra" <%= state === 'Maharashtra' ? 'selected' : '' %>>Maharashtra</option>
-          <option value="Manipur" <%= state === 'Manipur' ? 'selected' : '' %>>Manipur</option>
-          <option value="Meghalaya" <%= state === 'Meghalaya' ? 'selected' : '' %>>Meghalaya</option>
-          <option value="Mizoram" <%= state === 'Mizoram' ? 'selected' : '' %>>Mizoram</option>
-          <option value="Nagaland" <%= state === 'Nagaland' ? 'selected' : '' %>>Nagaland</option>
-          <option value="Odisha" <%= state === 'Odisha' ? 'selected' : '' %>>Odisha</option>
-          <option value="Punjab" <%= state === 'Punjab' ? 'selected' : '' %>>Punjab</option>
-          <option value="Rajasthan" <%= state === 'Rajasthan' ? 'selected' : '' %>>Rajasthan</option>
-          <option value="Sikkim" <%= state === 'Sikkim' ? 'selected' : '' %>>Sikkim</option>
-          <option value="Tamil Nadu" <%= state === 'Tamil Nadu' ? 'selected' : '' %>>Tamil Nadu</option>
-          <option value="Telangana" <%= state === 'Telangana' ? 'selected' : '' %>>Telangana</option>
-          <option value="Tripura" <%= state === 'Tripura' ? 'selected' : '' %>>Tripura</option>
-          <option value="Uttar Pradesh" <%= state === 'Uttar Pradesh' ? 'selected' : '' %>>Uttar Pradesh</option>
-          <option value="Uttarakhand" <%= state === 'Uttarakhand' ? 'selected' : '' %>>Uttarakhand</option>
-          <option value="West Bengal" <%= state === 'West Bengal' ? 'selected' : '' %>>West Bengal</option>
-          <option value="Andaman and Nicobar Islands" <%= state === 'Andaman and Nicobar Islands' ? 'selected' : '' %>>Andaman and Nicobar Islands</option>
-          <option value="Chandigarh" <%= state === 'Chandigarh' ? 'selected' : '' %>>Chandigarh</option>
-          <option value="Dadra and Nagar Haveli and Daman and Diu" <%= state === 'Dadra and Nagar Haveli and Daman and Diu' ? 'selected' : '' %>>Dadra and Nagar Haveli and Daman and Diu</option>
-          <option value="Delhi" <%= state === 'Delhi' ? 'selected' : '' %>>Delhi</option>
-          <option value="Lakshadweep" <%= state === 'Lakshadweep' ? 'selected' : '' %>>Lakshadweep</option>
-          <option value="Puducherry" <%= state === 'Puducherry' ? 'selected' : '' %>>Puducherry</option>
-        </select>
-      </div>
-      <label for="sort">Sort by:</label>
-      <select name="sort" id="sort">
-        <option value="">Sort by</option>
-        <option value="rating" <%= sort === 'rating' ? 'selected' : '' %>>Rating</option>
-        <option value="budget" <%= sort === 'budget' ? 'selected' : '' %>>Budget</option>
-      </select>
-      <div class="filter-buttons">
-        <button type="submit" class="filter-button apply-filters">
-          Apply Filters
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
-    <div class="container">
-      <div class="active-filters" id="activeFilters">
-        <div class="active-filters-content"></div>
-      </div>
-      <div class="section-grid">
-        <% services.forEach((service) => { %>
-          <div class="prod-grid">
-            <% if (service.profilePhoto) { %>
-              <img
-                src="/<%= service.profilePhoto %>"
-                alt="<%= serviceType %> profilePhoto"
-              />
-            <% } else { %>
-              <p>No photo available</p>
-            <% } %>
-            <h3><%= service.firmname %></h3>
-            <p><%= service.description %></p>
-            <a
-              href="/services/<%= serviceType.toLowerCase() %>/<%= service._id %>"
-              class="checkout-btn">
-              Check Out
-            </a>
-          </div>
-        </div>
-          <% }) %>
-      </div>
-    </div>
-    <footer>
-      <div class="footer-container container">
-        <div class="content_1">
-          <h2 style="color: azure">EventEase</h2>
-        </div>
-        <div class="content_2">
-          <h4>Services</h4>
-          <a href="#catering">Catering</a>
-          <a href="#venues">Venues</a>
-          <a href="#dj-bands">DJ & Bands</a>
-          <a href="#event-planners">Event Planners</a>
-        </div>
-        <div class="content_3" style="margin: 4% 0">
-          <h4>About Us</h4>
-          <p style="color: rgb(154, 151, 151); width: 50%; text-align: left">
-            At EventEase, we are passionate about simplifying event planning.
-            Whether you're hosting a grand wedding, a corporate gala, or a small
-            gathering, we connect you with the best services tailored to your
-            needs. Our mission is to provide a seamless, stress-free experience,
-            helping you create unforgettable memories. Explore. Plan. Celebrate.
-            Let’s make your dream event a reality!
-          </p>
-        </div>
-        <div class="social_icons">
-          <h4>Follow Us:</h4>
-          <a href="#"><i class="bx bxl-facebook"></i></a>
-          <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="#"><i class="bx bxl-whatsapp"></i></a>
-          <a href="#"><i class="bx bxl-instagram"></i></a>
-        </div>
-      </div>
-      <div class="f-design">
-        <div class="f-design-txt container">
-          <p>© 2024 | EventEase | All Rights Reserved.</p>
-        </div>
-      </div>
-    </footer>
-    <script src="/javascripts/browse.js"></script>
-  </body>
-</html> -->
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -268,7 +73,39 @@
             <select id="state" name="state">
               <option value="">-- Select State --</option>
               <option value="Andhra Pradesh" <%= state === 'Andhra Pradesh' ? 'selected' : '' %>>Andhra Pradesh</option>
-              <!-- Add other states here -->
+          <option value="Arunachal Pradesh" <%= state === 'Arunachal Pradesh' ? 'selected' : '' %>>Arunachal Pradesh</option>
+          <option value="Assam" <%= state === 'Assam' ? 'selected' : '' %>>Assam</option>
+          <option value="Bihar" <%= state === 'Bihar' ? 'selected' : '' %>>Bihar</option>
+          <option value="Chhattisgarh" <%= state === 'Chhattisgarh' ? 'selected' : '' %>>Chhattisgarh</option>
+          <option value="Goa" <%= state === 'Goa' ? 'selected' : '' %>>Goa</option>
+          <option value="Gujarat" <%= state === 'Gujarat' ? 'selected' : '' %>>Gujarat</option>
+          <option value="Haryana" <%= state === 'Haryana' ? 'selected' : '' %>>Haryana</option>
+          <option value="Himachal Pradesh" <%= state === 'Himachal Pradesh' ? 'selected' : '' %>>Himachal Pradesh</option>
+          <option value="Jharkhand" <%= state === 'Jharkhand' ? 'selected' : '' %>>Jharkhand</option>
+          <option value="Karnataka" <%= state === 'Karnataka' ? 'selected' : '' %>>Karnataka</option>
+          <option value="Kerala" <%= state === 'Kerala' ? 'selected' : '' %>>Kerala</option>
+          <option value="Madhya Pradesh" <%= state === 'Madhya Pradesh' ? 'selected' : '' %>>Madhya Pradesh</option>
+          <option value="Maharashtra" <%= state === 'Maharashtra' ? 'selected' : '' %>>Maharashtra</option>
+          <option value="Manipur" <%= state === 'Manipur' ? 'selected' : '' %>>Manipur</option>
+          <option value="Meghalaya" <%= state === 'Meghalaya' ? 'selected' : '' %>>Meghalaya</option>
+          <option value="Mizoram" <%= state === 'Mizoram' ? 'selected' : '' %>>Mizoram</option>
+          <option value="Nagaland" <%= state === 'Nagaland' ? 'selected' : '' %>>Nagaland</option>
+          <option value="Odisha" <%= state === 'Odisha' ? 'selected' : '' %>>Odisha</option>
+          <option value="Punjab" <%= state === 'Punjab' ? 'selected' : '' %>>Punjab</option>
+          <option value="Rajasthan" <%= state === 'Rajasthan' ? 'selected' : '' %>>Rajasthan</option>
+          <option value="Sikkim" <%= state === 'Sikkim' ? 'selected' : '' %>>Sikkim</option>
+          <option value="Tamil Nadu" <%= state === 'Tamil Nadu' ? 'selected' : '' %>>Tamil Nadu</option>
+          <option value="Telangana" <%= state === 'Telangana' ? 'selected' : '' %>>Telangana</option>
+          <option value="Tripura" <%= state === 'Tripura' ? 'selected' : '' %>>Tripura</option>
+          <option value="Uttar Pradesh" <%= state === 'Uttar Pradesh' ? 'selected' : '' %>>Uttar Pradesh</option>
+          <option value="Uttarakhand" <%= state === 'Uttarakhand' ? 'selected' : '' %>>Uttarakhand</option>
+          <option value="West Bengal" <%= state === 'West Bengal' ? 'selected' : '' %>>West Bengal</option>
+          <option value="Andaman and Nicobar Islands" <%= state === 'Andaman and Nicobar Islands' ? 'selected' : '' %>>Andaman and Nicobar Islands</option>
+          <option value="Chandigarh" <%= state === 'Chandigarh' ? 'selected' : '' %>>Chandigarh</option>
+          <option value="Dadra and Nagar Haveli and Daman and Diu" <%= state === 'Dadra and Nagar Haveli and Daman and Diu' ? 'selected' : '' %>>Dadra and Nagar Haveli and Daman and Diu</option>
+          <option value="Delhi" <%= state === 'Delhi' ? 'selected' : '' %>>Delhi</option>
+          <option value="Lakshadweep" <%= state === 'Lakshadweep' ? 'selected' : '' %>>Lakshadweep</option>
+          <option value="Puducherry" <%= state === 'Puducherry' ? 'selected' : '' %>>Puducherry</option>
             </select>
           </div>
           <label for="startDate">Start Date:</label>
