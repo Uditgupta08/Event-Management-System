@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Poppins", sans-serif;
+	background-color: #f4f4f4;
+	color: #333;
+	line-height: 1.6;
+	margin: 0;
+	padding: 0;
+}
+
+.site-header {
+	background-color: #ffffff;
+	padding: 1rem 2rem;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	display: flex;
+	align-items: center;
+}
+
+.home-btn {
+	font-family: Arial, sans-serif;
+	text-decoration: none;
+	color: #ffffff;
+	background-color: #007bff;
+	padding: 0.6rem 1.2rem;
+	border-radius: 5px;
+	font-weight: bold;
+	transition: background-color 0.3s ease;
+}
+
+.home-btn:hover {
+	background-color: #0056b3;
+}
+
+h1 {
+	text-align: center;
+	margin: 2rem 0;
+	color: #007bff;
+}
+
+h2 {
+	margin: 2rem 0 1rem 0;
+	color: #555;
+	border-bottom: 2px solid #007bff;
+	padding-bottom: 0.5rem;
+}
+
+.booking {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	padding: 1.5rem;
+	margin: 1rem 0;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	transition: box-shadow 0.3s ease;
+}
+
+.booking:hover {
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.booking h3 {
+	color: #007bff;
+	margin-bottom: 0.5rem;
+}
+
+.booking p {
+	margin: 0.5rem 0;
+	color: #666;
+}
+
+p {
+	text-align: center;
+	font-style: italic;
+	color: #888;
+}

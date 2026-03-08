@@ -1,48 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/stylesheets/success.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
-    <title>Success</title>
-  </head>
-  <body>
-    <div class="navbar">
-      <a href="/past-bookings">My Bookings</a>
-      <a href="/requests" class="button">View Booking Requests</a>
-      <a href="/set-manual-busy-dates" class="button">Set Availability</a>
-      <a href="/edit">Edit Profile</a>
-      <a href="/logout">Logout</a>
-    </div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/stylesheets/success.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+		/>
+		<title>Success</title>
+	</head>
+	<body>
+		<div class="navbar">
+			<a href="/home">Home</a>
+			<a href="/past-bookings">My Bookings</a>
+			<a href="/requests" class="button">View Booking Requests</a>
+			<a href="/set-manual-busy-dates" class="button">Set Availability</a>
+			<a href="/edit">Edit Profile</a>
+			<a href="/logout">Logout</a>
+		</div>
 
-    <div class="profile-info">
-      <h2>Welcome aboard, <%= provider.email %>!</h2>
-      <% if (provider.profilePhoto) { %>
-      <img
-        src="<%= provider.profilePhoto %>"
-        alt="Profile Photo"
-        class="profile-photo"
-      />
-      <% } %>
-      <p><strong>Email:</strong> <%= provider.email %></p>
-      <p>
-        <strong>Address:</strong> <%= provider.city %>, <%= provider.state %>,
-        <%= provider.country %>
-      </p>
-    </div>
+		<div class="profile-info">
+			<h2>Welcome aboard, <%= provider.email %>!</h2>
+			<% if (provider.profilePhoto) { %>
+			<img
+				src="<%= provider.profilePhoto %>"
+				alt="Profile Photo"
+				class="profile-photo"
+			/>
+			<% } %>
+			<p><strong>Email:</strong> <%= provider.email %></p>
+			<p>
+				<strong>Address:</strong> <%= provider.city %>, <%= provider.state %>,
+				<%= provider.country %>
+			</p>
+		</div>
 
-    <h2>Uploaded Photos:</h2>
-    <div class="photos">
-      <% if (provider.photos && provider.photos.length > 0) { %> <%
-      provider.photos.forEach(photo => { %>
-      <img src="<%= photo %>" alt="Provider Photo" />
-      <% }); %> <% } else { %>
-      <p>No photos uploaded.</p>
-      <% } %>
-    </div>
-  </body>
+		<h2>Uploaded Photos:</h2>
+		<div class="photos">
+			<% if (provider.photos && provider.photos.length > 0) { %> <%
+			provider.photos.forEach(photo => { %>
+			<img src="<%= photo %>" alt="Provider Photo" />
+			<% }); %> <% } else { %>
+			<p>No photos uploaded.</p>
+			<% } %>
+		</div>
+	</body>
 </html>

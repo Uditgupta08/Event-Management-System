@@ -1,53 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Provider Events</title>
-    <link rel="stylesheet" href="/stylesheets/events.css" />
-  </head>
-  <body>
-    <h2>Upcoming Confirmed Events</h2>
-    <% if (upcomingBookings && upcomingBookings.length > 0) { %> <%
-    upcomingBookings.forEach(function(booking) { %>
-    <div class="booking">
-      <p>
-        <strong>Booked By:</strong> <%= booking.userId.fullname %> (<%=
-        booking.userId.email %>)
-      </p>
-      <p>
-        <strong>Event Start Date:</strong>
-        <%= new Date(booking.eventDate).toLocaleString() %>
-      </p>
-      <p>
-        <strong>Event End Date:</strong>
-        <%= new Date(booking.endDate).toLocaleString() %>
-      </p>
-    </div>
-    <% }); %> <% } else { %>
-    <p>No upcoming confirmed events to show.</p>
-    <% } %>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Provider Events</title>
+		<link rel="stylesheet" href="/stylesheets/events.css" />
+		<style>
+			.site-header {
+				background-color: #ffffff; 
+				padding: 1rem 2rem; 
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+				display: flex;
+				align-items: center;
+			}
 
-    <h2>Past Confirmed Events</h2>
-    <% if (pastBookings && pastBookings.length > 0) { %> <%
-    pastBookings.forEach(function(booking) { %>
-    <div class="booking">
-      <p>
-        <strong>Booked By:</strong> <%= booking.userId ? booking.userId.fullname
-        : 'Unknown' %> (<%= booking.userId ? booking.userId.email : 'Unknown'
-        %>)
-      </p>
-      <p>
-        <strong>Event Start Date:</strong>
-        <%= new Date(booking.eventDate).toLocaleString() %>
-      </p>
-      <p>
-        <strong>Event End Date:</strong>
-        <%= new Date(booking.endDate).toLocaleString() %>
-      </p>
-    </div>
-    <% }); %> <% } else { %>
-    <p>No past confirmed events to show.</p>
-    <% } %>
-  </body>
+			.home-btn {
+				font-family: Arial, sans-serif; 
+				text-decoration: none; 
+				color: #ffffff;
+				background-color: #007bff;
+				padding: 0.6rem 1.2rem;
+				border-radius: 5px;
+				font-weight: bold;
+				transition: background-color 0.3s ease; 
+			}
+
+			.home-btn:hover {
+				background-color: #0056b3;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="site-header">
+			<nav>
+				<a href="/home" class="home-btn">Home</a>
+			</nav>
+		</header>
+		<h2>Upcoming Confirmed Events</h2>
+		<% if (upcomingBookings && upcomingBookings.length > 0) { %> <%
+		upcomingBookings.forEach(function(booking) { %>
+		<div class="booking">
+			<p>
+				<strong>Booked By:</strong> <%= booking.userId.fullname %> (<%=
+				booking.userId.email %>)
+			</p>
+			<p>
+				<strong>Event Start Date:</strong>
+				<%= new Date(booking.eventDate).toLocaleString() %>
+			</p>
+			<p>
+				<strong>Event End Date:</strong>
+				<%= new Date(booking.endDate).toLocaleString() %>
+			</p>
+		</div>
+		<% }); %> <% } else { %>
+		<p>No upcoming confirmed events to show.</p>
+		<% } %>
+
+		<h2>Past Confirmed Events</h2>
+		<% if (pastBookings && pastBookings.length > 0) { %> <%
+		pastBookings.forEach(function(booking) { %>
+		<div class="booking">
+			<p>
+				<strong>Booked By:</strong> <%= booking.userId ? booking.userId.fullname
+				: 'Unknown' %> (<%= booking.userId ? booking.userId.email : 'Unknown'
+				%>)
+			</p>
+			<p>
+				<strong>Event Start Date:</strong>
+				<%= new Date(booking.eventDate).toLocaleString() %>
+			</p>
+			<p>
+				<strong>Event End Date:</strong>
+				<%= new Date(booking.endDate).toLocaleString() %>
+			</p>
+		</div>
+		<% }); %> <% } else { %>
+		<p>No past confirmed events to show.</p>
+		<% } %>
+	</body>
 </html>

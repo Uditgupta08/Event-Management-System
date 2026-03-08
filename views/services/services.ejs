@@ -41,13 +41,19 @@
           />
         </div>
         <div class="home_txt">
-          <p class="collectio">Delicious Catering for Every Palate</p>
-          <h2 style="color: white"><%= serviceType %> Services</h2>
+          <% if (serviceType === 'Catering') { %>
+            <p class="collectio">Delicious Catering for Every Palate</p>
+          <% } %>
+          <h2 style="color: white"><%= serviceType.charAt(0).toUpperCase() + serviceType.slice(1) %> Services</h2>
           <div class="home_label">
-            <p>
-              From gourmet dining to casual bites, find catering services that
-              match your event's style and your guests' preferences.
-            </p>
+            <% if (serviceType === 'Catering') { %>
+              <p>
+                From gourmet dining to casual bites, find catering services that
+                match your event's style and your guests' preferences.
+              </p>
+            <% } else { %>
+              <p>Find <%= serviceType %> services that match your event's needs.</p>
+            <% } %>
           </div>
           <button class="filter-trigger" onclick="toggleFilterPopup()">
             <i class="bx bx-filter"></i>Filter

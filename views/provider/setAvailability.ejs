@@ -1,52 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/stylesheets/setAvail.css" />
-    <title>Set Availability</title>
-  </head>
-  <body>
-    <h1>Set Availability</h1>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/stylesheets/setAvail.css" />
+		<title>Set Availability</title>
+		<style>
+			.site-header {
+				background-color: #ffffff; 
+				padding: 1rem 2rem; 
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+				display: flex;
+				align-items: center;
+			}
 
-    <div class="dates-container">
-      <h2>Your Busy Dates:</h2>
-      <div id="busyDatesList">
-        <% if (busyDates && busyDates.length > 0) { %> <%
-        busyDates.forEach(function(period) { %> <% if (period && period.start &&
-        period.end) { %>
-        <span class="busy-date">
-          <%= period.start.toDateString() %> - <%=
-          period.start.toLocaleTimeString() %> to <%= period.end.toDateString()
-          %> - <%= period.end.toLocaleTimeString() %>
-        </span>
-        <% } %> <% }); %> <% } else { %>
-        <p>No busy dates set.</p>
-        <% } %>
-      </div>
-    </div>
+			.home-btn {
+				font-family: Arial, sans-serif; 
+				text-decoration: none; 
+				color: #ffffff;
+				background-color: #007bff;
+				padding: 0.6rem 1.2rem;
+				border-radius: 5px;
+				font-weight: bold;
+				transition: background-color 0.3s ease; 
+			}
 
-    <form action="/set-availability" method="POST">
-      <label for="busyStartDate">Set Busy Dates (from - to):</label><br />
-      <input type="date" name="busyStartDate" required />
-      <input type="time" name="busyStartTime" required />
-      <input type="date" name="busyEndDate" required />
-      <input type="time" name="busyEndTime" required />
-      <button type="submit" class="button">Set Busy Dates</button>
-    </form>
-    <form action="/available-dates" method="POST">
-      <h2>Set Available Dates (with Time):</h2>
-      <label for="availableStartDate">Available Start Date:</label>
-      <input type="date" name="availableStartDate" required />
-      <input type="time" name="availableStartTime" required />
+			.home-btn:hover {
+				background-color: #0056b3;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="site-header">
+			<nav>
+				<a href="/home" class="home-btn">Home</a>
+			</nav>
+		</header>
+		<h1>Set Availability</h1>
 
-      <label for="availableEndDate">Available End Date:</label>
-      <input type="date" name="availableEndDate" required />
-      <input type="time" name="availableEndTime" required />
+		<div class="dates-container">
+			<h2>Your Busy Dates:</h2>
+			<div id="busyDatesList">
+				<% if (busyDates && busyDates.length > 0) { %> <%
+				busyDates.forEach(function(period) { %> <% if (period && period.start &&
+				period.end) { %>
+				<span class="busy-date">
+					<%= period.start.toDateString() %> - <%=
+					period.start.toLocaleTimeString() %> to <%= period.end.toDateString()
+					%> - <%= period.end.toLocaleTimeString() %>
+				</span>
+				<% } %> <% }); %> <% } else { %>
+				<p>No busy dates set.</p>
+				<% } %>
+			</div>
+		</div>
 
-      <button type="submit" class="button">Set Available Dates</button>
-    </form>
+		<form action="/set-availability" method="POST">
+			<label for="busyStartDate">Set Busy Dates (from - to):</label><br />
+			<input type="date" name="busyStartDate" required />
+			<input type="time" name="busyStartTime" required />
+			<input type="date" name="busyEndDate" required />
+			<input type="time" name="busyEndTime" required />
+			<button type="submit" class="button">Set Busy Dates</button>
+		</form>
+		<form action="/available-dates" method="POST">
+			<h2>Set Available Dates (with Time):</h2>
+			<label for="availableStartDate">Available Start Date:</label>
+			<input type="date" name="availableStartDate" required />
+			<input type="time" name="availableStartTime" required />
 
-    <a href="logoutPro" class="button">Logout</a>
-  </body>
+			<label for="availableEndDate">Available End Date:</label>
+			<input type="date" name="availableEndDate" required />
+			<input type="time" name="availableEndTime" required />
+
+			<button type="submit" class="button">Set Available Dates</button>
+		</form>
+
+		<a href="logoutPro" class="button">Logout</a>
+	</body>
 </html>
